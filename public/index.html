@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HEXpostcards</title> 
+    <meta name="description" content="Print and mail a HEX postcard to every mailbox!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- SOCKETIO -->
+    <script src="/socket.io/socket.io.js"></script>
+
+	<!-- STYLE -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+
+    <!-- FACEBOOK -->
+    <meta property="og:url" content="https://HEXpostcards.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HEXpostcards">
+    <meta property="og:description" content="Print and mail a HEX postcard to every mailbox!">
+    <meta property="og:image:url" content="https://hexpostcards.com/hexpostcardsimage.jpg">
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="HEXpostcards.com">
+    <meta property="twitter:url" content="https://HEXpostcards.com/">
+    <meta name="twitter:title" content="HEXpostcards">
+    <meta name="twitter:description" content="Print and mail a HEX postcard to every mailbox!">
+    <meta name="twitter:image" content="https://hexpostcards.com/hexpostcardsimage.jpg">
+
+	<!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    
+    <script>
+        var socket = io.connect();
+
+        socket.on('hexPrice', function (price) {
+            if (price && price !== ''){
+                document.title = 'HEXpostcards $' + price;
+            }
+        });
+
+        $(document).ready(function() {
+			$('#buttonInstructions').click(function() { 
+				$('#divInstructions').toggle();
+			});
+			$('#buttonDesigns').click(function() { 
+				$('#divDesigns').toggle();
+			});
+			$('#buttonPictures').click(function() { 
+				$('#divPictures').toggle();
+			});
+			$('#buttonVideos').click(function() { 
+				$('#divVideos').toggle();
+				$('#divVideos').get(0).scrollIntoView();
+			});
+		});
+    </script>
+
+    <style>
+
+    </style>
+</head>
+<body style="background-color:black;">
+<div>
+    <div id="mainSection" style="padding-bottom: 30px;">
+        <center><a href="https://t.me/HEXpostcards" target="_blank"><img src="hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
+		<center><a href="https://archive.ph/Vnkjr" target="_blank"><img src="proof002.png" style="width: 612px; height:654px; !important;"></img></a></center>
+		<center>
+		    <button id="buttonDesigns" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 20px;">Designs</button>
+			<ul id="divDesigns" style="display: none; text-align: left; width: 300px; margin-bottom: 0px; margin-top: 16px;">
+				<li><a href="/designs/HEXpostcard_6.5x9_Fillup_SideA_03.pdf" target="_blank">6.5x9_Fillup_SideA.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.5x9_Fillup_SideA_03.png" target="_blank">(image)</a></li></br>
+				<li><a href="/designs/HEXpostcard_6.5x9_Fillup_SideB_03.pdf" target="_blank">6.5x9_Fillup_SideB.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.5x9_Fillup_SideB_03.png" target="_blank">(image)</a></li></br>
+				</br>
+				<li><a href="/designs/HEXpostcard_6.25x9_PFL_BothSides_05.pdf" target="_blank">6.25x9_PFL_Both.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.25x9_PFL_BothSides_05.png" target="_blank">(image)</a></li></br>
+				<li><a href="/designs/HEXpostcard_6.25x9_PFL_SideA_04.pdf" target="_blank">6.25x9_PFL_SideA.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.25x9_PFL_SideA_04.png" target="_blank">(image)</a></li></br>
+				<li><a href="/designs/HEXpostcard_6.25x9_PFL_SideB_04.pdf" target="_blank">6.25x9_PFL_SideB.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.25x9_PFL_SideB_04.png" target="_blank">(image)</a></li></br>
+				</br>
+<li><a href="https://www.adobe.com/products/illustrator" target="_blank">Adobe Illustrator ($30/month)</a></br>
+</li></br>
+<li><a href="https://t.me/hexdesign" target="_blank">Find a designer</a> &nbsp;<a href="https://t.me/eyeofwoden" target="_blank">(Steed)</a></li></br>
+			</ul>
+		<center>
+		
+		<center>
+		    <button id="buttonInstructions" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 10px;">Instructions</button>
+			<div id="divInstructions" style="display: none; text-align: left; width: 300px; margin-bottom: 10px; margin-top: 16px; padding-bottom: 10px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
+With EDDM (Every Door Direct Mail) you just need a zip code and mailman can send your flat mail (postcard or flyer) to every address along each zip code route!<br>
+<br>
+==========================<br>
+1. Choose a Printer<br>
+<br>
+== USA<br>
+<br>
+<a href="https://twitter.com/fillup_banks" target="_blank"><img src="card001c.jpg" style="max-width: 100%; padding-bottom: 5px;"></img></a>
+a. Fillup Banks (6.5" x 9")<br>
+[$0.33 per postcard]<br>
+<a href="https://www.hex.promo/product/direct-mail/" target="_blank">https://www.hex.promo</a><br>
+<a href="https://twitter.com/fillup_banks" target="_blank">https://twitter.com/fillup_banks</a><br>
+(Max production ~$10k per week)<br>
+(Payment in Cryptocurrency)<br>
+<br>
+<a href="https://www.printingforless.com/Every-Door-Direct-Mail.html" target="_blank"><img src="pfl.png" style="max-width: 100%; padding-bottom: 5px;"></img></a>
+b. PrintingForLess [PFL] (6.25" x 9")<br> 
+[$0.48 per postcard]<br>
+<a href="https://www.printingforless.com/Every-Door-Direct-Mail.html" target="_blank">https://www.printingforless.com/Every-Door-Direct-Mail.html</a><br>
+(Request samples for 20% off first order)<br>
+(Payment in Credit Card or Check)<br>
+<br>
+- Ink:  High Gloss UV Coating<br>
+- Paper:  120# Gloss Cover 14 pt<br>
+<br>
+
+<a href="https://printerdirectory.usps.com/listing" target="_blank"><img src="usps003.png" style="max-width: 100%; padding-bottom: 5px;"></img></a>
+c. USPS Printer Directory<br>
+<a href="https://printerdirectory.usps.com/listing" target="_blank">https://printerdirectory.usps.com/listing</a><br>
+<br>
+TIP: Request that a few leftover postcards from printing be mailed to you (they use large machines that print them in batches, so usually always leftovers)<br>
+<br>
+== Canada - <a href="https://t.me/HEXpostcards/178" target="_blank">https://t.me/HEXpostcards/178</a><br>
+<a href="https://t.me/HEX_Canada" target="_blank">(https://t.me/HEX_Canada)</a><br>
+<br>
+== United Kingdom - <a href="https://t.me/HEXpostcards/181" target="_blank">https://t.me/HEXpostcards/181</a><br>
+<a href="https://t.me/hex_uk" target="_blank">(https://t.me/hex_uk)</a><br>
+<br>
+== Australia - <a href="https://t.me/HEXpostcards/302" target="_blank">https://t.me/HEXpostcards/302</a><br>
+<a href="https://t.me/hexaustraliachat" target="_blank">(https://t.me/hexaustraliachat)</a><br>
+<br>
+== Germany - <a href="https://t.me/HEXpostcards/344" target="_blank">https://t.me/HEXpostcards/344</a><br>
+<a href="https://t.me/Kryptosparbuch" target="_blank">(https://t.me/Kryptosparbuch)</a><br>
+			</div>
+		<center>
+		
+		<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 48px; width: 300px; margin-top: 10px;">Join Chat</button></center>
+	
+		<center><a href="https://t.me/HEXpostcards" target="_blank"><img src="/designs/HEXpostcard_designcontest_01.jpg" style="width: 450px; margin-top: 20px;"></img></a></center>
+		
+		<center>
+		    <button id="buttonPictures" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 20px;">More Pictures</button>
+			<div id="divPictures" style="display: none; width: 500px; text-align: left;  margin-bottom: 0px; margin-top: 16px; padding-bottom: 10px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
+				<a href="proof001.png" target="_blank"><img src="proof001.png" style="max-width: 100%" loading="lazy"></img></a><br>
+				<a href="proof003.png" target="_blank"><img src="proof003.png" style="max-width: 100%" loading="lazy"></img></a><br>
+				<a href="proof004.png" target="_blank"><img src="proof004.png" style="max-width: 100%" loading="lazy"></img></a><br>
+				<a href="card004.jpg" target="_blank"><img src="card004.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<a href="card005.jpg" target="_blank"><img src="card005.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<a href="card003.jpg" target="_blank"><img src="card003.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<a href="card006.jpg" target="_blank"><img src="card006.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+			</div>
+		<center>
+		
+		<center>
+		    <button id="buttonVideos" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 10px;">Videos</button>
+			<div id="divVideos" style="display: none; width: 80%; text-align: left;  margin-bottom: 0px; margin-top: 16px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
+				<video width="100%" preload="none" controls onclick="this.play()">
+				  <source src="promo001.mp4" type="video/mp4">
+				  Your browser does not support the video tag.
+				</video>
+			</div>
+		<center>
+	</div>  
+</div>
