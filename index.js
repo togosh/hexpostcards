@@ -85,7 +85,7 @@ if (CONFIG.price.enabled) {
 var priceUrl = "https://api.nomics.com/v1/currencies/ticker?key=" + CONFIG.price.nomicsKey + "&ids=HEX";
 
 async function updatePrice(){
-	console.log("updatePrice()");console.log("updatePrice()");
+	console.log("updatePrice()");
 	try {
 		const resp = await fetch(priceUrl);
 		const data = await resp.json();
