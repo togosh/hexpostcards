@@ -9,7 +9,6 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
-var cors = require('cors');
 
 const { JSDOM } = require( "jsdom" );
 const { window } = new JSDOM( "" );
