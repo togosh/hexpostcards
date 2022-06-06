@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HEXpostcards</title> 
+    <meta name="description" content="Print and mail a HEX postcard to every mailbox!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- SOCKETIO -->
+    <script src="/socket.io/socket.io.js"></script>
+
+	<!-- STYLE -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- FACEBOOK -->
+    <meta property="og:url" content="https://HEXpostcards.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HEXpostcards">
+    <meta property="og:description" content="Print and mail a HEX postcard to every mailbox!">
+    <meta property="og:image:url" content="https://hexpostcards.com/hexpostcardsimage.png">
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="HEXpostcards.com">
+    <meta property="twitter:url" content="https://HEXpostcards.com/">
+    <meta name="twitter:title" content="HEXpostcards">
+    <meta name="twitter:description" content="Print and mail a HEX postcard to every mailbox!">
+    <meta name="twitter:image" content="https://hexpostcards.com/hexpostcardsimage.png">
+
+	<!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    
+    <script>
+        var socket = io.connect();
+
+        socket.on('hexPrice', function (price) {
+            if (price && price !== ''){
+                document.title = 'HEXpostcards $' + price;
+            }
+        });
+
+        $(document).ready(function() {
+					$('#buttonInternational').click(function() { 
+						$('#divInternational').toggle();
+					});
+					$('#buttonVideos').click(function() { 
+						$('#divVideos').toggle();
+						$('#divVideos').get(0).scrollIntoView();
+					});
+					$('#buttonAction').click(function() { 
+						$('#divAction').toggle();
+					});
+				});
+    </script>
+
+    <style>
+		.button {background-color: #3B3B3B !important;}
+		.div {color: white !important;}
+    </style>
+</head>
+<body style="background-color:black;">
+<div>
+    <div id="mainSection" style="padding-bottom: 30px;">
+    <center><a href="https://HEXpostcards.com"><img src="/hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
+
+		<center><button onclick="window.location='index.html';" type="button" style="height: 48px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Home</button></center>
+
+		<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 48px; width: 300px; margin-top: 10px;">Join Chat to Vote</button></center>
+	
+		<center><a href="https://t.me/HEXpostcards" target="_blank"><img src="/designs/HEXpostcard_designcontest_01.jpg" style="width: 450px; margin-top: 20px;"></img></a></center>
+		
+		<center>
+			<div id="divPictures" style="max-width: 600px; text-align: left;  margin-bottom: 0px; margin-top: 16px; padding-bottom: 10px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
+				
+				EcoBuildr <a href="https://twitter.com/EcoBuildr" target="_blank">(https://twitter.com/EcoBuildr)</a><br>
+				<br>1 <a href="/contest/HEXpostcarddesign_001.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_001.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>2 <a href="/contest/HEXpostcarddesign_002.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_002.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>3 <a href="/contest/HEXpostcarddesign_003.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_003.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>4 <a href="/contest/HEXpostcarddesign_004.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_004.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>5 <a href="/contest/HEXpostcarddesign_005.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_005.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>6 <a href="/contest/HEXpostcarddesign_006.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_006.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>7 <a href="/contest/HEXpostcarddesign_007.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_007.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>8 <a href="/contest/HEXpostcarddesign_008.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_008.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>9 <a href="/contest/HEXpostcarddesign_009.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_009.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>10 <a href="/contest/HEXpostcarddesign_010.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_010.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>11 <a href="/contest/HEXpostcarddesign_011.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_011.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_011b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_011b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				
+				<br><br>Turn Crypto <a href="https://twitter.com/TurnCrypto" target="_blank">(https://twitter.com/TurnCrypto)</a><br>
+				<br>12 <a href="/contest/HEXpostcarddesign_012.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_012.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_012b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_012b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				
+			  <br><br>Victor HEXFanNetwork <a href="https://twitter.com/PunishedVic" target="_blank">(https://twitter.com/PunishedVic)</a><br>
+				<br>13 <a href="/contest/HEXpostcarddesign_013.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_013.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+
+				<br><br>Kax Design <a href="https://twitter.com/kax_design" target="_blank">(https://twitter.com/kax_design)</a> <a href="https://t.me/kdesign25" target="_blank">(https://t.me/kdesign25)</a><br>
+				<br>14 <a href="/contest/HEXpostcarddesign_014.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_014b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_014dark.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014dark.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_014darkb.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014darkb.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				
+				<br><br>0xJohn <a href="https://t.me/crypto0xJohn" target="_blank">(https://t.me/crypto0xJohn)</a><br>
+				<br>15 <a href="/contest/HEXpostcarddesign_015.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_015.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_015b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_015b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+
+				<br><br>Moses <a href="https://t.me/Moses689" target="_blank">(https://t.me/Moses689)</a><br>
+				<br>16 <a href="/contest/HEXpostcarddesign_016.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_016.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>17 <a href="/contest/HEXpostcarddesign_017.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_017.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+
+				<br><br>Neptune Creates
+				<br>18 <a href="/contest/HEXpostcarddesign_018.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_018b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_018c.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018c.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_018d.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018d.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+
+				<br><br>HEX Kif <a href="https://t.me/KifGonza" target="_blank">(https://t.me/KifGonza)</a><br>
+				<br>19 <a href="/contest/HEXpostcarddesign_019.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_019.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_019b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_019b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				
+				<center><button id="buttonInternational" style="width: 300px; height: 48px; margin-bottom: 0px; margin-top: 10px;">International</button></center>
+				<div id="divInternational" style="display: none">
+				<br>20 <a href="/contest/HEXpostcarddesign_020_india_dark.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_020_india_dark.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_020_india_light.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_020_india_light.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>21 <a href="/contest/HEXpostcarddesign_021_spain_dark.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_021_spain_dark.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_021_spain_light.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_021_spain_light.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br>22 <a href="/contest/HEXpostcarddesign_022_usa_dark.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_022_usa_dark.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				<br><a href="/contest/HEXpostcarddesign_022_usa_light.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_022_usa_light.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+				</div>
+
+				<br><br>Sugam Giri<br>
+				<br>23<br> <a href="/contest/HEXpostcarddesign_023.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_023.jpg" style="max-width: 400px;" loading="lazy"></img></a><br>
+
+				<br><br>=== Door Hangers
+
+				<br><br>Duderzzz <a href="https://t.me/R3b3ll10US" target="_blank">(https://t.me/R3b3ll10US)</a><br>
+				<br><a href="/contest/HEXpostcarddesign_024.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_024.jpg" style="max-width: 400px;" loading="lazy"></img></a><br>
+
+				<br><br>Brisology
+				<br><a href="/contest/HEXpostcarddesign_025.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_025.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+
+				<br><br>=== Flyer?
+
+				<br><br>Brisology
+				<br><a href="/contest/HEXpostcarddesign_026.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_026.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+
+			</div>
+		<center>
+		
+		<center>
+		    <button id="buttonVideos" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 10px;">Videos</button>
+			<div id="divVideos" style="display: none; width: 80%; text-align: left;  margin-bottom: 0px; margin-top: 16px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
+				<video width="100%" preload="none" controls onclick="this.play()">
+				  <source src="promo001.mp4" type="video/mp4">
+				  Your browser does not support the video tag.
+				</video>
+			</div>
+		<center>
+
+		<center>
+			<button id="buttonAction" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 10px;">Take Action</button>
+			<div id="divAction" style="display: none; text-align: left; width: 300px; margin-bottom: 0px; margin-top: 16px;">
+			<ul style="color: white;">
+				<li><a href="https://www.reddit.com/r/HEXcrypto/comments/uuvjep/hex_advertising_checklist/" target="_blank">Advertising Checklist</a> &nbsp;</li></br>
+				<li>Stickers</br></br>
+					<ul>
+						<li><a href="https://www.hexmerch.com/search?q=bulk" target="_blank">Hexmerch</a></li></br>
+						<li><a href="https://slapz.co.uk" target="_blank">Slapz</a></li></br>
+						<li><a href="https://stickerguywin.myshopify.com" target="_blank">Sticker Guy</a></li></br>
+					</ul>
+				</li>
+				<li>Business Cards</br></br>
+					<ul>
+						<li><a href="https://twitter.com/abit_hex/status/1507120078764056584" target="_blank">Abit Hex</a></li></br>
+						<li><a href="https://hex.promo/product/business-cards/" target="_blank">Hex Promo</a></li></br>
+					</ul>
+				</li>
+				<li>License Plate Frame</br></br>
+					<ul>
+						<li><a href="https://twitter.com/superhexwin/status/1445932793637203970" target="_blank">Superhexwin</a></br></li></br>
+					</ul>
+				</li>
+				<li>Car Magnet</br></br>
+					<ul>
+						<li><a href="https://twitter.com/Hexologist31/status/1509993620455133187" target="_blank">Hexologist</a></br></li></br>
+						<li><a href="https://twitter.com/Hexologist31/status/1515097279815831552" target="_blank">Hexologist 2</a></br></li></br>
+					</ul>
+				</li>
+				<li>Clothing</br></br>
+					<ul>
+						<li><a href="https://www.hexmerch.com" target="_blank">Hexmerch</a></br></li></br>
+						<li><a href="https://cryptowearz.net" target="_blank">Cryptowearz</a></br></li></br>
+						<li><a href="https://www.hexdays.com" target="_blank">Hex Days</a></br></li></br>
+					</ul>
+				</li>
+				<li>Twitter</br></br>
+					<ul>
+						<li><a href="https://twitter.com/i/flow/signup" target="_blank">Signup</a></br></li></br>
+						<li><a href="https://twitter.com/RichardHeartWin/with_replies" target="_blank">Richard Heart</a></br></li></br>
+						<li><a href="https://www.howtopulse.com/twitterstorm" target="_blank">Twitterstorm</a></br></li></br>
+						<li><a href="https://tweetdeck.twitter.com/" target="_blank">Tweetdeck</a></br></li></br>
+					</ul>
+				</li>
+				<li>Meetups</br></br>
+					<ul>
+						<li><a href="https://docs.google.com/spreadsheets/d/1ldsLwatFW0G8deN8CQgAFPj62_ULxjxGdueSwL_0GoE" target="_blank">Telegram Groups</a></br></li></br>
+						<li><a href="https://www.hexmeetups.com/" target="_blank">HEXmeetups</a></br></li></br>
+					</ul>
+				</li>
+				<li>Flyers</br></br>
+					<ul>
+						<li><a href="https://twitter.com/hodpril/status/1519181709014552576" target="_blank">Hodpril</a></br></li></br>
+					</ul>
+				</li>
+				<li>Letters</br></br>
+					<ul>
+						<li><a href="https://imgur.com/a/LwGngPa" target="_blank">Designs</a></br></li></br>
+						<li><a href="https://www.youtube.com/watch?v=Tq9N47xTK8Y#t=5m19s" target="_blank">BrentX</a></br></li></br>
+					</ul>
+				</li>
+				<li>Stamp</br></br>
+					<ul>
+						<li><a href="https://www.cryptotittoker.com/s/search?q=stamp" target="_blank">CryptoTikToker</a></br></li></br>
+					</ul>
+				</li>
+				<li>Logos</br></br>
+					<ul>
+						<li><a href="https://hex.com/downloads" target="_blank">HEX</a></li></br>
+						<li><a href="https://pulsechain.com/Branding.zip" target="_blank">Pulsechain</a></li></br>
+						<li><a href="https://pulsex.com/brand" target="_blank">PulseX</a></li></br>
+						<li><a href="https://t.me/HEXdesign/" target="_blank">HEXdesign Chat</a></li></br>
+					</ul>
+				</li>
+				<b>NOTE:</b> For any kind of merchandise or advertisement always try to write "HEX.COM" instead of "HEX"!
+			</ul>
+			</div>
+		<center>
+
+		<center>
+			<div style="margin-top: 20px; color: white;">Donation Address:<br> <a href="https://etherscan.io/address/0x25D4CCeba035AabB7aC79C4F2fEaD5bC74E6B9d8" target="_blank">0x25D4CCeba035AabB7aC79C4F2fEaD5bC74E6B9d8</a></div>
+		</center>
+
+		<center>
+			<center><button onclick="window.location='index.html';" type="button" style="height: 48px; width: 300px; margin-top: 30px; margin-bottom: 10px;">Home</button></center>
+
+		</center>
+	</div>  
+</div>
