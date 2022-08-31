@@ -9,6 +9,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
+const schedule = require('node-schedule');
 
 const { JSDOM } = require( "jsdom" );
 const { window } = new JSDOM( "" );
@@ -64,9 +65,14 @@ app.get("/grabdata", function (req, res) {
 });
 
 async function grabData(){
+	console.log("grabData()");
 	leaderboardData = await getLeaderboardData();
 	io.emit("leaderboardData", leaderboardData);
 }
+
+var jobLive15 = schedule.scheduleJob("*/15 * * * *", function() { 
+  grabData();
+});
 
 httpServer.listen(httpPort, hostname, () => { log(`Server running at http://${hostname}:${httpPort}/`);});
 if(!DEBUG){ httpsServer.listen(httpsPort, hostname, () => { 
