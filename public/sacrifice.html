@@ -52,7 +52,73 @@
 					$('#buttonStats').click(function() { 
 						$('#divStats').toggle();
 					});
+					$('#buttonLeader').click(function() { 
+						$('#divLeader').toggle();
+					});
+					$('#buttonOrders').click(function() { 
+						$('#divOrders').toggle();
+						$('#divOrders').html(orderTableHTML);
+					});
+					$('#buttonTeam').click(function() { 
+						$('#divTeam').toggle();
+					});
 				});
+
+				var currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD'});
+				var currencyFormatterNoDecimal = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
+			
+				var orderTableHTML = `
+				<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Wealthy Houses Reached</th>
+						<th scope="col">Order Total</th>
+						<th scope="col">Price per Card</th>
+						<th scope="col">Printing & Mailing Service</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>` + Number(126416).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + `</td>
+						<td>` + currencyFormatterNoDecimal.format(41023) + `</td>
+						<td>` + currencyFormatter.format(0.32) + `</td>
+						<td><a href="https://www.hex.promo/product/direct-mail/"  target="_blank">Fillup Banks</a></td>
+					</tr>
+					<tr>
+						<td>` + Number(23187).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + `</td>
+						<td>` + currencyFormatterNoDecimal.format(6544) + `</td>
+						<td>` + currencyFormatter.format(0.28) + `</td>
+						<td><a href="https://www.hex.promo/product/direct-mail/"  target="_blank">Fillup Banks</a></td>
+					</tr>
+					<tr>
+						<td>` + Number(85343).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + `</td>
+						<td>` + currencyFormatterNoDecimal.format(24987) + `</td>
+						<td>` + currencyFormatter.format(0.29) + `</td>
+						<td><a href="https://www.hex.promo/product/direct-mail/"  target="_blank">Fillup Banks</a></td>
+					</tr>
+					<tr>
+						<td>` + Number(35613).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + `</td>
+						<td>` + currencyFormatterNoDecimal.format(18533) + `</td>
+						<td>` + currencyFormatter.format(0.52) + `</td>
+						<td><a href="https://www.printingforless.com/Every-Door-Direct-Mail.html"  target="_blank">PrintingForLess</a></td>
+					</tr>
+					<tr>
+						<td>` + Number(42863).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + `</td>
+						<td>` + currencyFormatterNoDecimal.format(20201) + `</td>
+						<td>` + currencyFormatter.format(0.47) + `</td>
+						<td><a href="https://www.printingforless.com/Every-Door-Direct-Mail.html"  target="_blank">PrintingForLess</a></td>
+					</tr>
+					<tr>
+						<td>` + Number(30853).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + `</td>
+						<td>` + currencyFormatterNoDecimal.format(14821) + `</td>
+						<td>` + currencyFormatter.format(0.48) + `</td>
+						<td><a href="https://www.printingforless.com/Every-Door-Direct-Mail.html"  target="_blank">PrintingForLess</a></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div style="margin-bottom: 10px; margin-top: 10px;"><a href="https://docs.google.com/spreadsheets/d/1WN1dFyRtjxu8Ai-k3E1LQVIuNLSdWb4vncuSLiHU3QE/" target="_blank">Wealthy Zip Codes and Printers</a></div>`;
+			$('#divOrders').html(orderTableHTML);
     </script>
 
     <style>
@@ -66,7 +132,7 @@
 	<center><a href="https://HEXpostcards.com"><img src="/hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
 
 	<center><a href="https://t.me/HEXpostcards" target="_blank"><img src="/card008.png" style="max-width: 100%; height:auto;"></img></a></center>
-
+	
 	<center>
 		<div style="margin-top: 30px; margin-bottom: 0px; color: white;">
 			
@@ -95,18 +161,36 @@
 		</div>
 	</center>
 
-	<center><div style="margin-bottom: 30px; color: white;">Postcard sacrifice is live!</div></center>
+	<center><div style="margin-bottom: 30px; color: white; max-width: 500px">(Historically these addresses have been used to print and mail HEX postcards to the wealthiest people in the world)</div></center>
 
-	<center><div style="margin-bottom: 30px; color: white;">Support the Freedom of Promotion!</div></center>
+	<center><div style="margin-bottom: 30px; color: white;">- Postcard sacrifice is live!</div></center>
 
-	<center><div style="margin-bottom: 30px; color: white;">Sacrifice phase ends December 2nd 2022</div></center>
+	<center><div style="margin-bottom: 30px; color: white;">- Support the Freedom of Promotion!</div></center>
 
-	<center><div style="margin-bottom: 30px; color: white;">Wallets may be added to an airdrop list for future projects</div></center>
+	<center><div style="margin-bottom: 30px; color: white;">- Sacrifice phase ends December 2nd 2022</div></center>
 
-	<center><div style="margin-bottom: 30px; color: white;">OA (Origin Address) may also reward all sacrificers!</div></center>
+	<center><div style="margin-bottom: 30px; color: white;">- Wallets may be used as airdrop for future projects</div></center>
+
+	<center><div style="margin-bottom: 30px; color: white;">- OA (Origin Address) may also reward all sacrificers!</div></center>
+
+	<center><div style="margin-bottom: 30px; color: white;">- Postcard token is still in development</div></center>
+
+	<center><div style="margin-bottom: 30px; color: white;">- Bonus multiplier for early sacs</div></center>
 
 	<center>
-		<button id="buttonStats" style="width: 300px; height: 48px; margin-bottom: 30px; margin-top: 10px;">Direct Mail Statistics</button>
+		<button id="buttonLeader" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 10px;">Leaderboard</button>
+		<div id="divLeader" style="display: none; max-width: 400px; margin-left: 10px; color: white;">In Development<br><br>
+    </div>
+	</center>
+
+	<center>
+		<button id="buttonOrders" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 10px;">Historical Orders</button>
+		<div id="divOrders" style="display: none; max-width: 400px; margin-left: 10px; color: white;">In Development<br><br>
+		</div>
+	</center>
+
+	<center>
+		<button id="buttonStats" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 10px;">Direct Mail Statistics</button>
 		<div id="divStats" style="display: none; max-width: 400px; text-align: left; margin-left: 10px; color: white;">1. 41% of Americans of all ages look forward to checking their mail each day.<br><br>
 2. 58% of the mail American households receive is marketing mail<br><br>
 (If people mostly get marketing mail and are still looking forward to it, that’s great news for marketers!)<br><br>
@@ -120,6 +204,14 @@
 Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/" target="_blank">https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/</a>
 </div>
 	</center>
+
+  <center>
+		<button id="buttonTeam" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 10px;">Team</button>
+		<div id="divTeam" style="display: none; max-width: 400px; margin-left: 10px; color: white;">In Development<br><br>
+    </div>
+	</center>
+
+	<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 48px; width: 300px; margin-top: 10px;">Join Chat</button></center>
 
 	<center><div style="margin-bottom: 60px"></div></center>
 
