@@ -121,6 +121,27 @@
 			$('#divOrders').html(orderTableHTML);
     </script>
 
+	<script>
+		var countDownDate = new Date("Dec 2, 2022 00:00:00").getTime();
+		
+		var x = setInterval(function() {
+			var now = new Date().getTime();
+			var distance = countDownDate - now;
+
+			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+				
+			$('#countdownTimer').html(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
+			
+			if (distance < 0) {
+				clearInterval(x);
+				$('#countdownTimer').html("SACRIFICE PHASE ENDED!");
+			}
+		}, 1000);
+		</script>
+
     <style>
 		.button {background-color: #3B3B3B !important;}
 		.div {color: white !important;}
@@ -132,7 +153,7 @@
 	<center><a href="https://HEXpostcards.com"><img src="/hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
 
 	<center><a href="https://t.me/HEXpostcards" target="_blank"><img src="/card008.png" style="max-width: 100%; height:auto;"></img></a></center>
-	
+
 	<center>
 		<div style="margin-top: 30px; margin-bottom: 0px; color: white;">
 			
@@ -160,6 +181,8 @@
 				</div>
 		</div>
 	</center>
+
+	<center><p id="countdownTimer" style="font-size: 30px;"></p></center>
 
 	<center><div style="margin-bottom: 30px; color: white; max-width: 500px">(Historically these addresses have been used to print and mail HEX postcards to the wealthiest people in the world)</div></center>
 
