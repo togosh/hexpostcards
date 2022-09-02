@@ -69,8 +69,11 @@ app.get("/grabdata", function (req, res) {
 
 async function grabData(){
 	console.log("grabData()");
-	leaderboardData = await getLeaderboardData();
-	io.emit("leaderboardData", leaderboardData);
+	var leaderboardResponse = await getLeaderboardData();
+  if (leaderboardResponse != undefined){
+    leaderboardData = leaderboardResponse;
+    io.emit("leaderboardData", leaderboardData);
+  }
 }
 
 var jobLive15 = schedule.scheduleJob("*/15 * * * *", function() { 
@@ -136,7 +139,8 @@ const log = (message) => {
 async function getLeaderboardData(){
 	var address1 = "0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668";
   var address2 = "0x25D4CCeba035AabB7aC79C4F2fEaD5bC74E6B9d8";
-  
+
+  try {
   var output1 = await sumInputs(address1);
   await new Promise(r => setTimeout(r, 5000));
   console.log(output1);
@@ -165,6 +169,11 @@ async function getLeaderboardData(){
   console.log(final);
 
 	return final;
+  } catch (e){
+    console.log("getLeaderboardData() ERROR ======== ");
+    console.log(e);
+    return undefined;
+  }
 }
 
 async function sumInputs(address){
