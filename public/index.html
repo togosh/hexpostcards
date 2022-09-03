@@ -43,9 +43,48 @@
     <script>
         var socket = io.connect();
 
+				var leaderboardData = undefined;
+				var leaderboardDataString = undefined;
+				var sacrificeTotal = undefined;
+
         socket.on('hexPrice', function (price) {
             if (price && price !== ''){
                 document.title = 'HEXpostcards $' + price;
+            }
+        });
+
+				socket.on('leaderboardData', function (data) {
+					console.log("leaderboardData SOCKET ON RECEIVED DATA")
+					console.log(data)
+            if (data && data !== ''){
+
+							sacrificeTotal = data.reduce( function(a, b){
+									return a + b["usdValue"];
+							}, 0);
+							sacrificeTotal = currencyFormatter.format(sacrificeTotal);
+							console.log("sacrificeTotal");
+							console.log(sacrificeTotal);
+							$('#sacrificeTotal').html(sacrificeTotal);
+
+							/*
+							var data = data.map(item => {
+								const container = {};
+
+								container.from = item.from;
+								container.usdValue = currencyFormatter.format(item.usdValue);
+
+								return container;
+							});
+
+							leaderboardData = data;
+							leaderboardDataString = JSON.stringify(data);
+							
+							$('#leaderboardTable').bootstrapTable({
+								data: leaderboardData
+							});
+							
+							$('#leaderboardTable td:first-child').addClass('text-right');
+							*/
             }
         });
 
@@ -82,6 +121,27 @@
     </script>
 		<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+		<script>
+			var countDownDate = new Date("Dec 2, 2022 00:00:00").getTime();
+			
+			var x = setInterval(function() {
+				var now = new Date().getTime();
+				var distance = countDownDate - now;
+	
+				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+					
+				$('#countdownTimer').html(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
+				
+				if (distance < 0) {
+					clearInterval(x);
+					$('#countdownTimer').html("SACRIFICE PHASE ENDED!");
+				}
+			}, 1000);
+		</script>
+
     <style>
 		.button {background-color: #3B3B3B !important;}
 		.div {color: white !important;}
@@ -94,12 +154,18 @@
     <div id="mainSection" style="padding-bottom: 30px;">
         <center><img src="hexpostcardslogo.png" style="max-width: 100%; height:auto;"></img></center>
 
-		<center><div style="margin-top: 10px; margin-bottom: 20px; font-size: 30px;"><a href="/sacrifice" style="color: red;" onmouseover="this.style.color='#fa8072';" onmouseout="this.style.color='red';">Postcard Sacrifice is Live!</a></div></center>
+		<center><p id="countdownTimer" style="font-size: 30px; color: white;"></p></center>
+
+		<center><div style="margin-top: 0px; margin-bottom: 20px; font-size: 30px;"><a href="/sacrifice" style="color: red;" onmouseover="this.style.color='#fa8072';" onmouseout="this.style.color='red';">Postcard Sacrifice is Live!</a></div></center>
+
+		<center><div id="sacrificeTotal" style="margin-bottom: 20px; color: white; font-size: 30px;">$135,000</div></center>
 
 		<center><div style="margin-bottom: 30px; font-size: 24px;"><a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/" target="_blank">Direct Mail Statistics</a></div></center>
 
 		<center><img src="proof005.png" style="max-width: 100%; height:auto;"></img></center>
 
+		<center><a href="/sacrifice"><button type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 0px;">Sacrifice</button></a></center>
+	
 		<center>
 		<button id="buttonRichard" style="width: 300px; height: 60px; margin-bottom: 0px; margin-top: 20px; margin-bottom: 10px">Richard Heart</button>
 		<div id="divRichard" style="display: none; max-width: 560px; text-align: left;  margin-bottom: 10px; margin-top: 0px; padding-left: 7px; padding-top: 5px;">
@@ -158,8 +224,6 @@
 			</ul>
 		<center>
 
-		<center><a href="/contest"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Design Contest</button></a></center>
-		
 		<center>
 		    <button id="buttonInstructions" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px;">Instructions</button>
 			<div id="divInstructions" style="display: none; color: white !important; text-align: left; width: 300px; margin-bottom: 10px; margin-top: 16px; padding-bottom: 10px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
@@ -242,29 +306,18 @@ TIP: Request that all leftover postcards from printing be mailed to you (they us
 		</div>
 		
 	<center>
-		
-		<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Join Chat</button></center>
+
+		<center><img src="/ruleof7.png" style="width: 100%; max-width: 350px; margin-top: 10px;"></img></center>
+
+		<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 0px;">Join Chat</button></center>
+
+		<center><a href="/contest"><button type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 10px;">Design Contest</button></a></center>
 
 		<center>
 			<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px;">Take Action</button></a>
 		<center>
 
-		<center>
-			<div style="margin-top: 30px; margin-bottom: 30px; color: white; font-size: 16px;">
-				Donation Address for Nonprofit Printing:<br>
-				<a href="https://etherscan.io/address/0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668" target="_blank">0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668</a>
-			</div>
-		</center>
-
-		<center>
-			<div style="margin-top: 20px; margin-bottom: 30px; color: white; font-size: 18px;">
-				Join the Team: <a href="https://t.me/HEXpostcards" target="_blank">t.me/HEXpostcards</a>
-			</div>
-		</center>
-
-		<center><a href="/sacrifice"><button type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 50px;">Sacrifice</button></a></center>
-	
-		<center><img src="/ruleof7.png" style="width: 100%; max-width: 350px"></img></center>
+		<center><a href="/sacrifice"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Sacrifice</button></a></center>
 
 		<center><div style="margin-bottom: 120px"></div></center>
 	</div>  

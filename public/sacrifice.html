@@ -102,14 +102,13 @@
 					});
 					$('#buttonOrders').click(function() { 
 						$('#divOrders').toggle();
-						$('#divOrders').html(orderTableHTML);
+						//$('#divOrders').html(orderTableHTML);
 					});
 					$('#buttonTeam').click(function() { 
 						$('#divTeam').toggle();
 					});
-				});
 
-				var currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD'});
+					var currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD'});
 				var currencyFormatterNoDecimal = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
 			
 				var orderTableHTML = `
@@ -142,6 +141,12 @@
 						<td><a href="https://www.hex.promo/product/direct-mail/"  target="_blank">Fillup Banks</a></td>
 					</tr>
 					<tr>
+						<td class="text-right">` + Number(22223).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + `</td>
+						<td class="text-right">` + currencyFormatterNoDecimal.format(6399) + `</td>
+						<td>` + currencyFormatter.format(0.29) + `</td>
+						<td><a href="https://www.hex.promo/product/direct-mail/"  target="_blank">Fillup Banks</a></td>
+					</tr>
+					<tr>
 						<td class="text-right">` + Number(35613).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + `</td>
 						<td class="text-right">` + currencyFormatterNoDecimal.format(18533) + `</td>
 						<td>` + currencyFormatter.format(0.52) + `</td>
@@ -162,8 +167,11 @@
 				</tbody>
 			</table>
 			
-			<div style="margin-bottom: 10px; margin-top: 10px;"><a href="https://docs.google.com/spreadsheets/d/1WN1dFyRtjxu8Ai-k3E1LQVIuNLSdWb4vncuSLiHU3QE/" target="_blank">Wealthy Zip Codes and Printers</a></div>`;
+			<center><div style="margin-bottom: 10px; margin-top: 10px;"><a href="https://docs.google.com/spreadsheets/d/1WN1dFyRtjxu8Ai-k3E1LQVIuNLSdWb4vncuSLiHU3QE/" target="_blank">Wealthy Zip Codes and Printers</a></div></center>`;
 			$('#divOrders').html(orderTableHTML);
+				});
+
+				
     </script>
 
 	<script>
@@ -203,8 +211,30 @@
 	<div id="mainSection" style="padding-bottom: 30px;">
 	<center><a href="https://HEXpostcards.com"><img src="/hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
 
-	<center><a href="https://t.me/HEXpostcards" target="_blank"><img src="/card008.png" style="max-width: 100%; height:auto;"></img></a></center>
+	<center><img src="/card008.png" style="max-width: 100%; height:auto;"></img></center>
 
+	<center><p id="countdownTimer" style="font-size: 30px; color: white; margin-top: 20px;"></p></center>
+
+	<center>
+		<button id="buttonLeader" style="width: 300px; height: 60px; margin-bottom: 0px; margin-top: 10px;">Leaderboard</button>
+		<div id="divLeader" style="display: none; max-width: 540px; margin-bottom: 20px; color: white;">In Development<br><br>
+			<table id="leaderboardTable" style="color: white;"> <!--data-height="460"-->
+			<thead>
+					<tr>
+						<th data-field="usdValue">USD</th>
+						<th data-field="from">Address</th>
+					</tr>
+			</thead>
+			</table>
+    </div>
+	</center>
+
+	<center><div id="sacrificeTotal" style="margin-bottom: 0px; color: white; font-size: 30px; margin-top: 20px;">$135,000</div></center>
+
+	<center>
+	<div style="margin-top: 0px; max-width: 870px; font-size: 18px;">
+	<div style="display: flex; flex-wrap: wrap; justify-content: center;">
+	<div class="col-sm" style="min-width: 430px; max-width: 430px; width: 100%;">
 	<center>
 		<div style="margin-top: 30px; margin-bottom: 0px; color: white;">
 			
@@ -233,8 +263,6 @@
 		</div>
 	</center>
 
-	<center><p id="countdownTimer" style="font-size: 30px; color: white;"></p></center>
-
 	<center><div style="margin-bottom: 30px; color: white; max-width: 500px">(Historically these addresses have been used to print and mail HEX postcards to the wealthiest people in the world)</div></center>
 
 	<center><div style="margin-bottom: 30px; color: white;">- Sacrifice is live!</div></center>
@@ -249,35 +277,31 @@
 
 	<center><div style="margin-bottom: 30px; color: white;">- Postcard token still in development</div></center>
 
-	<center><div id="sacrificeTotal" style="margin-bottom: 20px; color: white; font-size: 30px;"></div></center>
+  </div>
 
+	<div class="col-sm" style="min-width: 430px; max-width: 430px; width: 100%; margin-top: 30px;">
 	<center>
-		<button id="buttonLeader" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Leaderboard</button>
-		<div id="divLeader" style="display: none; max-width: 540px; margin-left: 10px; margin-bottom: 20px; color: white;">In Development<br><br>
-			<table id="leaderboardTable" style="color: white;"> <!--data-height="460"-->
-			<thead>
-					<tr>
-						<th data-field="usdValue">USD</th>
-						<th data-field="from">Address</th>
-					</tr>
-			</thead>
-			</table>
-    </div>
-	</center>
-
-	<center>
-		<button id="buttonOrders" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Historical Orders</button>
-		<div id="divOrders" style="display: none; max-width: 400px; margin-left: 10px; color: white;">In Development<br><br>
+		<center><div style="font-size: 30px; color: white; margin-bottom: 20px; margin-left: 30px;">Historical Orders:<br></div></center>
+		<div id="divOrders" style="min-width: 430px; max-width: 430px; color: white; font-size: 18px;">In Development<br><br>
 		</div>
 	</center>
+  </div>
 
+	<div class="col-sm" style="min-width: 430px; max-width: 430px; width: 100%; margin-top: 30px;">
 	<center>
-		<button id="buttonStats" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Direct Mail Statistics</button>
-		<div id="divStats" style="display: none; max-width: 400px; text-align: left; margin-left: 10px; margin-bottom: 20px; color: white;">1. 41% of Americans of all ages look forward to checking their mail each day.<br><br>
+		<div style="font-size: 30px; color: white; margin-bottom: 20px;">Direct Mail Statistics:<br></div>
+		<div id="divStats" style="max-width: 400px; text-align: left; margin-bottom: 20px; color: white; margin-left: 10px;">1. 41% of Americans of all ages look forward to checking their mail each day.<br><br>
 2. 58% of the mail American households receive is marketing mail<br><br>
 (If people mostly get marketing mail and are still looking forward to it, that’s great news for marketers!)<br><br>
 5. Postcards get a fairly high response rate 4.25%<br><br>
 6. 59% of US respondents say they enjoy getting mail from brands about new products.<br><br>
+</div>
+	</center>
+</div>
+
+<div class="col-sm" style="min-width: 430px; max-width: 430px; width: 100%; margin-top: 30px;">
+	<center>
+		<div id="divStats" style="max-width: 400px; text-align: left;  margin-bottom: 20px; color: white; margin-left: 10px;">
 7. 18% of B2B marketers’ budget is assigned to direct mail marketing and print advertising.<br><br>
 8. 42.2% of direct mail recipients either read or scan the mail they get.<br><br>
 9. Advertising mail is kept in a household for 17 days on average.<br><br>
@@ -286,6 +310,10 @@
 Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/" target="_blank">https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/</a>
 </div>
 	</center>
+</div>
+</div>
+</div>
+</center>
 
   <!--<center>
 		<button id="buttonTeam" style="width: 300px; height: 48px; margin-bottom: 10px; margin-top: 10px;">Team</button>
@@ -294,6 +322,10 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 	</center>-->
 
 	<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Join Chat</button></center>
+
+	<center>
+		<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Take Action</button></a>
+	<center>
 
 	<center><button onclick="window.location='/';" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Home</button></center>
 
