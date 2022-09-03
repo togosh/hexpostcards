@@ -43,6 +43,9 @@
     <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.js"></script>
 
     <script>
+			var currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD'});
+			var currencyFormatterNoDecimal = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
+			
         var socket = io.connect();
 
 				var leaderboardData = undefined;
@@ -108,9 +111,6 @@
 						$('#divTeam').toggle();
 					});
 
-					var currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD'});
-				var currencyFormatterNoDecimal = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
-			
 				var orderTableHTML = `
 				<table class="table" style="color: white;">
 				<thead>

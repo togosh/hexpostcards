@@ -41,6 +41,9 @@
     <meta name="theme-color" content="#ffffff">
     
     <script>
+			  var currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD'});
+				var currencyFormatterNoDecimal = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
+			
         var socket = io.connect();
 
 				var leaderboardData = undefined;
