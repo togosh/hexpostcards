@@ -165,6 +165,14 @@ async function getLeaderboardData(){
   console.log("letsgo")
   
   final.sort((a, b) => parseFloat(b.usdValue) - parseFloat(a.usdValue));
+
+  let map = new Map();
+  map.set("a", {val: 1});
+
+  final = final.map(x => ({
+    ...x,
+    rank: Number(map.get("a").val++)
+  }))
   
   console.log(final);
 

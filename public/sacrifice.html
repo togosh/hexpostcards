@@ -77,6 +77,7 @@
 
 								container.from = item.from;
 								container.usdValue = currencyFormatter.format(item.usdValue);
+								container.rank = item.rank;
 
 								return container;
 							});
@@ -85,8 +86,9 @@
 							leaderboardDataString = JSON.stringify(data);
 							//$('#divLeader').html(leaderboardDataString);
 							$('#leaderboardTable').bootstrapTable({
-								data: leaderboardData
+								data: leaderboardData,
 							});
+							$('#leaderboardTable').bootstrapTable( 'resetView' , {height: 350} );
 
 							$('#leaderboardTable td:first-child').addClass('text-right');
             }
@@ -216,11 +218,12 @@
 	<center><p id="countdownTimer" style="font-size: 30px; color: white; margin-top: 20px;"></p></center>
 
 	<center>
-		<button id="buttonLeader" style="width: 300px; height: 60px; margin-bottom: 0px; margin-top: 10px;">Leaderboard</button>
-		<div id="divLeader" style="display: none; max-width: 540px; margin-bottom: 20px; color: white;">In Development<br><br>
+		<center><div style="margin-bottom: 20px; color: white;">Leaderboard</div></center>
+		<div id="divLeader" style="max-width: 540px; margin-bottom: 20px; color: white;">
 			<table id="leaderboardTable" style="color: white;"> <!--data-height="460"-->
 			<thead>
 					<tr>
+						<th data-field="rank">Rank</th>
 						<th data-field="usdValue">USD</th>
 						<th data-field="from">Address</th>
 					</tr>
