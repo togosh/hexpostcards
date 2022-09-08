@@ -41,6 +41,7 @@
     <meta name="theme-color" content="#ffffff">
     
     <script>
+			const postcardsMailedCount = 366498;
 			  var currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD'});
 				var currencyFormatterNoDecimal = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
 			
@@ -92,6 +93,8 @@
         });
 
         $(document).ready(function() {
+					$('#postcardsMailed').html(Number(postcardsMailedCount).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + " postcards sent!");
+					
 			$('#buttonInstructions').click(function() { 
 				$('#divInstructions').toggle();
 			});
@@ -157,17 +160,19 @@
     <div id="mainSection" style="padding-bottom: 30px;">
         <center><img src="hexpostcardslogo.png" style="max-width: 100%; height:auto;"></img></center>
 
-		<center><p id="countdownTimer" style="font-size: 30px; color: white; margin-top: 10px;"></p></center>
-
 		<center><div style="margin-top: 0px; margin-bottom: 20px; font-size: 30px;"><a href="/sacrifice" style="color: red;" onmouseover="this.style.color='#fa8072';" onmouseout="this.style.color='red';">Postcard Sacrifice is Live!</a></div></center>
 
-		<center><div id="sacrificeTotal" style="margin-bottom: 20px; color: white; font-size: 30px;">$135,000</div></center>
+		<center><p id="countdownTimer" style="font-size: 30px; color: white; margin-top: 10px;"></p></center>
+		<!--<center><div id="sacrificeTotal" style="margin-bottom: 20px; color: white; font-size: 30px;">$135,000</div></center>-->
 
-		<center><div style="margin-bottom: 30px; font-size: 24px;"><a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/" target="_blank">Direct Mail Statistics</a></div></center>
+		<!--<center><div style="margin-bottom: 30px; font-size: 24px;"><a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/" target="_blank">Direct Mail Statistics</a></div></center>-->
+		<center><div style="margin-bottom: 20px; font-size: 30px;"><a href="/sacrifice" target="_blank">BYPASS THE GATEKEEPING!</a></div></center>
+
+		<center><div id="postcardsMailed" style="margin-bottom: 30px; color: white; font-size: 30px;">366498<</div></center>
 
 		<center><img src="proof005.png" style="max-width: 100%; height:auto;"></img></center>
 
-		<center><a href="/sacrifice"><button type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 0px;">Sacrifice</button></a></center>
+		<!--<center><a href="/sacrifice"><button type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 0px;">Sacrifice</button></a></center>-->
 	
 		<center>
 		<button id="buttonRichard" style="width: 300px; height: 60px; margin-bottom: 0px; margin-top: 20px; margin-bottom: 10px">Richard Heart</button>
@@ -201,7 +206,7 @@
 			<a href="proof001.png" target="_blank"><img src="proof001.png" style="width: 100%" loading="lazy"></img></a><br>
 			<a href="proof003.png" target="_blank"><img src="proof003.png" style="width: 100%" loading="lazy"></img></a><br>
 			<a href="proof004.png" target="_blank"><img src="proof004.png" style="width: 100%" loading="lazy"></img></a><br>
-			<a href="proof005.png" target="_blank"><img src="proof005.png" style="width: 100%" loading="lazy"></img></a><br>
+			<!--<a href="proof005.png" target="_blank"><img src="proof005.png" style="width: 100%" loading="lazy"></img></a><br>-->
 			<a href="card004.jpg" target="_blank"><img src="card004.jpg" style="width: 100%" loading="lazy"></img></a><br>
 			<a href="card005.jpg" target="_blank"><img src="card005.jpg" style="width: 100%" loading="lazy"></img></a><br>
 			<a href="card003.jpg" target="_blank"><img src="card003.jpg" style="width: 100%" loading="lazy"></img></a><br>

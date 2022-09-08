@@ -89,8 +89,8 @@
 								data: leaderboardData,
 							});
 							$('#leaderboardTable').bootstrapTable( 'resetView' , {height: 350} );
-
-							$('#leaderboardTable td:first-child').addClass('text-right');
+							$('#leaderboardTable td:nth-of-type(2)').addClass('text-right');
+							$('#leaderboardTable').show();
             }
         });
 
@@ -206,6 +206,7 @@
       color: white;
     }
 		button {background-color: #6B6B6B !important; color: white;}
+		.table {color: white !important;}
     </style>
 </head>
 <body style="background-color:black;">
@@ -218,9 +219,9 @@
 	<center><p id="countdownTimer" style="font-size: 30px; color: white; margin-top: 20px;"></p></center>
 
 	<center>
-		<center><div style="margin-bottom: 20px; color: white;">Leaderboard</div></center>
-		<div id="divLeader" style="max-width: 540px; margin-bottom: 20px; color: white;">
-			<table id="leaderboardTable" style="color: white;"> <!--data-height="460"-->
+		<center><div style="margin-bottom: 20px; color: white;">Leaderboard (In Development)</div></center>
+		<div id="divLeader" style="max-width: 540px; max-height: 380px; min-height: 380px; margin-bottom: 20px; color: white;">
+			<table id="leaderboardTable" style="display: none; color: white;"> <!--data-height="460"-->
 			<thead>
 					<tr>
 						<th data-field="rank">Rank</th>
@@ -232,7 +233,7 @@
     </div>
 	</center>
 
-	<center><div id="sacrificeTotal" style="margin-bottom: 0px; color: white; font-size: 30px; margin-top: 20px;">$135,000</div></center>
+	<center><div id="sacrificeTotal" style="margin-bottom: 0px; color: white; font-size: 30px; padding-top: 30px;">$135,000</div></center>
 
 	<center>
 	<div style="margin-top: 0px; max-width: 870px; font-size: 18px;">
@@ -321,6 +322,13 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 		<div id="divTeam" style="display: none; max-width: 400px; margin-left: 10px; color: white;">In Development<br><br>
     </div>
 	</center>-->
+
+	<center>
+		<div style="font-size: 30px; color: white; margin-bottom: 20px;">Zip Codes & Printers:</div>
+		<div id="divZips" style="margin-bottom: 20px;">
+		<iframe style="height: 600px; width: 80%; max-width: 1000px;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQW6xWdo9kVVwDdk4GBZW4-PA-QX2BzjxAmdqZtb2Tsmhc8Rt54dCPQtr_paplN3rbZhNdtVcLyowfY/pubhtml?widget=true&amp;headers=false"></iframe>
+	</div>
+	</center>
 
 	<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Join Chat</button></center>
 
