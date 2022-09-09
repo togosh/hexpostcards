@@ -109,6 +109,10 @@ async function grabData(){
     if (leaderboardResponse != undefined){
       leaderboardData = leaderboardResponse;
       io.emit("leaderboardData", leaderboardData);
+
+      fs.writeFile('./public/HEXpostcards_sacrifices.json', JSON.stringify(leaderboardData), (error) => {
+        if (error) throw error;
+      });
     }
   } else {
     console.log("WARNING! - ethPrices not defined yet!");
@@ -251,17 +255,17 @@ async function getLeaderboardData(){
 
   try {
   var output1 = await sumInputs(address1);
-  await new Promise(r => setTimeout(r, 5000));
+  await new Promise(r => setTimeout(r, 10000));
   console.log(output1);
   console.log("======= output1")
   
   var output1ERC20 = await sumInputsERC20(address1);
-  await new Promise(r => setTimeout(r, 5000));
+  await new Promise(r => setTimeout(r, 10000));
   console.log(output1ERC20);
   console.log("======= output1ERC20")
   
   var output2 = await sumInputs(address2);
-  await new Promise(r => setTimeout(r, 5000));
+  await new Promise(r => setTimeout(r, 10000));
   console.log(output2);
   console.log("======= output2")
   
@@ -333,7 +337,7 @@ async function sumInputs(address){
 
 async function getInputs(address){
   try {
-    const resp = await fetch("https://api.etherscan.io/api?module=account&action=txlist&address=" + address + "&startblock=0&endblock=999999999&sort=asc&apikey=YourApiKeyToken");
+    const resp = await fetch("https://api.etherscan.io/api?module=account&action=txlist&address=" + address + "&startblock=0&endblock=999999999&sort=asc&apikey=" + CONFIG.etherscan.apikey);
     const data = await resp.json();
     return data.result;
    } catch (err) {
@@ -399,7 +403,7 @@ async function sumInputsERC20(address){
 
 async function getInputsERC20(address){
   try {
-    const resp = await fetch("https://api.etherscan.io/api?module=account&action=tokentx&address=" + address + "&startblock=0&endblock=999999999&sort=asc&apikey=YourApiKeyToken");
+    const resp = await fetch("https://api.etherscan.io/api?module=account&action=tokentx&address=" + address + "&startblock=0&endblock=999999999&sort=asc&apikey=" + CONFIG.etherscan.apikey);
     const data = await resp.json();
     return data.result;
    } catch (err) {

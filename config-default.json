@@ -14,5 +14,8 @@
 	"mongodb": {
 		"connectionString": "AAA"
 	},
+	"etherscan": {
+		"apikey": "AAA"
+	},
 	}
 }
