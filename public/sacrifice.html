@@ -91,6 +91,7 @@
 							$('#leaderboardTable').bootstrapTable( 'resetView' , {height: 350} );
 							$('#leaderboardTable td:nth-of-type(2)').addClass('text-right');
 							$('#leaderboardTable').show();
+							$('#divLeaderboard').show();
             }
         });
 
@@ -220,7 +221,7 @@
 
 	<center>
 		<center><div style="margin-bottom: 20px; color: white;">Leaderboard (In Development)</div></center>
-		<div id="divLeader" style="max-width: 540px; max-height: 380px; min-height: 380px; margin-bottom: 20px; color: white;">
+		<div id="divLeader" style="display: none; max-width: 540px; max-height: 380px; min-height: 380px; margin-bottom: 20px; color: white;">
 			<table id="leaderboardTable" style="display: none; color: white;"> <!--data-height="460"-->
 			<thead>
 					<tr>
@@ -262,7 +263,7 @@
 				</a>
 				<br>
 				<div style="color:lightgrey; font-size:12px;">
-					(HEX, ETH, USDT)
+					(ETH, USDT)
 				</div>
 		</div>
 	</center>
