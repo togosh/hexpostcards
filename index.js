@@ -197,7 +197,7 @@ async function getAndSet_currentEthPrice(){
 
 async function getCurrentEthPrice(){
   try {
-    const resp = await fetch("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=YourApiKeyToken");
+    const resp = await fetch("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=" + CONFIG.etherscan.apikey);
     const data = await resp.json();
     console.log(data);
     if (data.result && data.result.ethusd){
