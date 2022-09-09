@@ -17,6 +17,41 @@ const $ = require( "jquery" )( window );
 
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var EthPriceSchema = new Schema({
+	timestamp: {
+    type: Number, 
+    required: true
+  },
+	price: {
+    type: Number, 
+    required: true
+  }
+}, {
+  collection: "ethprices"
+});
+
+const EthPrice = mongoose.model('EthPrices', EthPriceSchema);
+
+var ethPrices = undefined;
+
+var mongoDB = CONFIG.mongodb.connectionString;
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
+		log("Mongo Connected!");
+
+    ethPrices = getEthPrices();
+    getAndSet_currentEthPrice();
+});
+
+async function getEthPrices(){
+  console.log("getEthPrices()");
+  ethPrices = await EthPrice.find();
+  console.log(ethPrices);
+  return ethPrices;
+}
+
 var hexPrice = '';
 var leaderboardData = undefined;
 
@@ -69,10 +104,14 @@ app.get("/grabdata", function (req, res) {
 
 async function grabData(){
 	console.log("grabData()");
-	var leaderboardResponse = await getLeaderboardData();
-  if (leaderboardResponse != undefined){
-    leaderboardData = leaderboardResponse;
-    io.emit("leaderboardData", leaderboardData);
+  if (ethPrices) {
+    var leaderboardResponse = await getLeaderboardData();
+    if (leaderboardResponse != undefined){
+      leaderboardData = leaderboardResponse;
+      io.emit("leaderboardData", leaderboardData);
+    }
+  } else {
+    console.log("WARNING! - ethPrices not defined yet!");
   }
 }
 
@@ -95,6 +134,76 @@ io.on('connection', (socket) => {
     socket.emit("hexPrice", hexPrice);
 		socket.emit("leaderboardData", leaderboardData);
 });
+
+
+/////////////////////////////////////////////
+// ETH PRICES
+
+const ruleCurrentDay = new schedule.RecurrenceRule();
+ruleCurrentDay.hour = 0;
+ruleCurrentDay.minute = 0;
+ruleCurrentDay.second = 30;
+ruleCurrentDay.tz = 'Etc/UTC';
+
+const jobCurrentDay = schedule.scheduleJob(ruleCurrentDay, function(){
+  log('**** DAILY DATA TIMER 30S!');
+  getAndSet_currentEthPrice();
+});
+
+async function getAndSet_currentEthPrice(){
+  console.log("getAndSet_currentEthPrice()");
+  var currentPrice = await getCurrentEthPrice();
+  if (currentPrice == undefined){
+    console.log("getAndSet_currentEthPrice() - ERROR - No Current Eth Price");
+  }
+  console.log("currentPrice");
+  console.log(currentPrice);
+
+  var price = Number(currentPrice);
+  console.log("price");
+  console.log(price);
+
+  var start = new Date();
+  start.setUTCHours(0,0,0,0);
+  var timestamp = Number(Math.floor(start / 1000));
+  console.log("timestamp");
+  console.log(timestamp);
+
+  var ethPrice = await EthPrice.findOne({timestamp: { $eq: timestamp }});
+  if (ethPrice == undefined || ethPrice == null){
+    console.log("Create new EthPrice!");
+    const ethPrice = new EthPrice({ 
+			timestamp: timestamp,
+			price: price
+		});
+
+		ethPrice.save(function (err) {
+			if (err) {
+        log("getAndSet_currentEthPrice() - Save ERROR");
+        return log(err);
+      } else {
+        log("New Eth Price Saved!");
+        ethPrices = getEthPrices();
+      }
+		});
+  } else {
+    log("Eth Price already set Today!");
+  }
+}
+
+async function getCurrentEthPrice(){
+  try {
+    const resp = await fetch("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=YourApiKeyToken");
+    const data = await resp.json();
+    console.log(data);
+    if (data.result && data.result.ethusd){
+      return data.result.ethusd;
+    }
+    return undefined;
+   } catch (err) {
+     console.log("ERROR: " + err + "\n" + err.stack);
+   }
+}
 
 
 /////////////////////////////////////////////
@@ -186,6 +295,55 @@ async function getLeaderboardData(){
 
 async function sumInputs(address){
   var data = await getInputs(address);
+  console.log("data");
+  console.log(data);
+  
+  var filteredData = data.filter(function (a) {
+    return (a.to.toLowerCase() == address.toLowerCase() 
+         && a.value != "0" 
+         && a.value != 0);
+	});
+  
+  const map = new Map();
+  for(const {from, value, timeStamp} of filteredData) {
+    console.log("timeStamp");
+    console.log(timeStamp);
+    var date = new Date(Number(timeStamp * 1000));
+    date.setUTCHours(0,0,0,0);
+    var dayTimestamp = Number(Math.floor(date / 1000));
+    console.log("dayTimestamp: " + dayTimestamp);
+
+    var index = ethPrices.findIndex(item => item.timestamp == dayTimestamp);
+    if (index < 0){
+      index = ethPrices.findIndex(item => item.timestamp == (dayTimestamp - 86400));
+    }
+    console.log("index: " + index);
+    console.log("ethPrices: " + ethPrices[index].price);
+
+    var usdValue = value / 1_000_000_000_000_000_000 * ethPrices[index].price;
+    console.log("usdValue: " + usdValue);
+
+    const currSum = map.get(from) || 0;
+    map.set(from, currSum + usdValue);
+  }
+  const output = Array.from(map, ([from, usdValue]) => ({from, usdValue}));
+
+	return output;
+}
+
+async function getInputs(address){
+  try {
+    const resp = await fetch("https://api.etherscan.io/api?module=account&action=txlist&address=" + address + "&startblock=0&endblock=999999999&sort=asc&apikey=YourApiKeyToken");
+    const data = await resp.json();
+    return data.result;
+   } catch (err) {
+     console.log("ERROR: " + err + "\n" + err.stack);
+   }
+}
+
+/* ETHPLORER API (ETH)
+async function sumInputs(address){
+  var data = await getInputs(address);
   
   var filteredData = data.filter(function (a) {
     return a.to.toLowerCase() == address.toLowerCase();
@@ -210,6 +368,7 @@ async function getInputs(address){
      console.log("ERROR: " + err + "\n" + err.stack);
    }
 }
+*/
 
 async function sumInputsERC20(address){
   var data = await getInputsERC20(address);

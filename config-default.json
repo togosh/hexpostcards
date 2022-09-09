@@ -10,5 +10,9 @@
 		"enabled": false,
 		"nomicsKey": "AAA",
 		"timer": 5
+	},
+	"mongodb": {
+		"connectionString": "AAA"
+	},
 	}
 }
