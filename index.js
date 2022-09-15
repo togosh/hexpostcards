@@ -274,8 +274,11 @@ async function getLeaderboardData(){
   console.log("======= output2ERC20")
 
   var hexSacrifices = [{from: "0xa0a11bead773e0aa6cd26fdba170bc52c3b29baa", usdValue: 156.50}];
+  var outsideSacrifices = [
+    {from: "0x43642BcAC746eD8D4d00EB4E20d487aBdA741CAE", usdValue: 12027.42},
+  ];
 
-  var final = output1.concat(output1ERC20, output2, output2ERC20, hexSacrifices);
+  var final = output1.concat(output1ERC20, output2, output2ERC20, hexSacrifices, outsideSacrifices);
   
   console.log("letsgo")
   
