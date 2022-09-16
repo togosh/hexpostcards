@@ -221,13 +221,19 @@
 	<div id="mainSection" style="padding-bottom: 30px;">
 	<center><a href="https://HEXpostcards.com"><img src="/hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
 
-	<center><img src="/card008.png" style="max-width: 100%; height:auto;"></img></center>
+	<center>
+		<div id="divPictures" style="color: white; max-width: 600px; text-align: left;  margin-bottom: 0px; margin-top: 16px; padding-bottom: 10px; padding-left: 7px; padding-top: 5px;">
+	  <!--<a href="/contest/HEXpostcarddesign_015.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_015.jpg" style="max-width: 100%" loading="lazy"></img></a><br><br>-->
+		<a href="/contest/HEXpostcarddesign_004.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_004.jpg" style="max-width: 100%" loading="lazy"></img></a>
+		<!--<a href="/contest/HEXpostcarddesign_014dark.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014dark.jpg" style="max-width: 100%" loading="lazy"></img></a><br>-->
+		<div>
+	</center>
 
-	<center><p id="countdownTimer" style="font-size: 30px; color: white; margin-top: 20px;"></p></center>
+	<center><p id="countdownTimer" style="font-size: 30px; color: white; margin-top: 20px; padding-bottom: 10px;"></p></center>
 
 	<center>
-		<center><div style="margin-bottom: 20px; color: white;">Leaderboard (In Development)</div></center>
-		<div id="divLeader" style="display: none; max-width: 540px; max-height: 380px; min-height: 380px; margin-bottom: 20px; color: white;">
+		<center><!--<div style="margin-bottom: 20px; color: white;">Leaderboard (In Development)</div>--></center>
+		<div id="divLeader" style="display: none; width: 100%; max-width: 620px; max-height: 380px; min-height: 380px; margin-bottom: 20px; color: white;">
 			<table id="leaderboardTable" style="display: none; color: white;"> <!--data-height="460"-->
 			<thead>
 					<tr>
@@ -274,8 +280,6 @@
 		</div>
 	</center>
 
-	<center><div style="margin-bottom: 30px; color: white; max-width: 500px">(Historically these addresses have been used to print and mail HEX postcards to the wealthiest people in the world)</div></center>
-
 	<center><div style="margin-bottom: 30px; color: white;">- Sacrifice is live!</div></center>
 
 	<center><div style="margin-bottom: 30px; color: white;">- Support the Freedom of Promotion!</div></center>
@@ -288,18 +292,10 @@
 
   </div>
 
-	<div class="col-sm" style="min-width: 430px; max-width: 430px; width: 100%; margin-top: 30px;">
-	<center>
-		<center><div style="font-size: 30px; color: white; margin-bottom: 20px; margin-left: 30px;">Historical Orders:<br></div></center>
-		<div id="divOrders" style="min-width: 430px; max-width: 430px; color: white; font-size: 18px;">In Development<br><br>
-		</div>
-	</center>
-  </div>
-
-	<div class="col-sm" style="min-width: 430px; max-width: 430px; width: 100%; margin-top: 30px;">
+	<div class="col-sm" style="display: none; min-width: 430px; max-width: 430px; width: 100%; margin-top: 30px;">
 	<center>
 		<div style="font-size: 30px; color: white; margin-bottom: 20px;">Direct Mail Statistics:<br></div>
-		<div id="divStats" style="max-width: 400px; text-align: left; margin-bottom: 20px; color: white; margin-left: 30px; margin-right: 10px;">1. 41% of Americans of all ages look forward to checking their mail each day.<br><br>
+		<div id="divStats2" style="max-width: 400px; text-align: left; margin-bottom: 20px; color: white; margin-left: 30px; margin-right: 10px;">1. 41% of Americans of all ages look forward to checking their mail each day.<br><br>
 2. 58% of the mail American households receive is marketing mail<br><br>
 (If people mostly get marketing mail and are still looking forward to it, that’s great news for marketers!)<br><br>
 5. Postcards get a fairly high response rate 4.25%<br><br>
@@ -308,9 +304,9 @@
 	</center>
 </div>
 
-<div class="col-sm" style="min-width: 430px; max-width: 430px; width: 100%; margin-top: 30px;">
+<div class="col-sm" style="display: none; min-width: 430px; max-width: 430px; width: 100%; margin-top: 30px;">
 	<center>
-		<div id="divStats" style="max-width: 400px; text-align: left;  margin-bottom: 20px; color: white; margin-left: 30px; margin-right: 10px;">
+		<div id="divStats3" style="max-width: 400px; text-align: left;  margin-bottom: 20px; color: white; margin-left: 30px; margin-right: 10px;">
 7. 18% of B2B marketers’ budget is assigned to direct mail marketing and print advertising.<br><br>
 8. 42.2% of direct mail recipients either read or scan the mail they get.<br><br>
 9. Advertising mail is kept in a household for 17 days on average.<br><br>
@@ -330,31 +326,42 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
     </div>
 	</center>-->
 
+	<center><button onclick="window.location='/';" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Home</button></center>
+
+	<!--<center><a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/" target="_blank"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Mail Statistics</button></a></center>-->
 	<center>
-		<div style="font-size: 30px; color: white; margin-bottom: 20px;">Zip Codes & Printers:</div>
-		<div id="divZips" style="margin-bottom: 20px;">
+		<center><button id="buttonStats" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Mail Statistics</button></center>
+		<div id="divStats" style="display: none; max-width: 400px; text-align: left; margin-bottom: 20px; color: white; margin-left: 30px; margin-right: 10px;">1. 41% of Americans of all ages look forward to checking their mail each day.<br><br>
+			2. 58% of the mail American households receive is marketing mail<br><br>
+			(If people mostly get marketing mail and are still looking forward to it, that’s great news for marketers!)<br><br>
+			5. Postcards get a fairly high response rate 4.25%<br><br>
+			6. 59% of US respondents say they enjoy getting mail from brands about new products.<br><br>
+      9. Advertising mail is kept in a household for 17 days on average.<br><br>
+      17. Consumers aged 45-54 are the demographic group most likely to respond to direct mail pieces.<br><br>
+			</div>
+	</center>
+
+	<center>
+		<center><button id="buttonOrders" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Historical Orders</button></center>
+		<!--<div style="font-size: 30px; color: white; margin-bottom: 20px; margin-left: 30px;">Historical Orders:<br></div>-->
+		<div id="divOrders" style="display: none; min-width: 430px; max-width: 430px; color: white; font-size: 18px;">In Development<br><br>
+		</div>
+	</center>
+
+  <center>
+		<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Take Action</button></a>
+	<center>
+	
+	<center><a href="/contest"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Design Contest</button></a></center>
+	
+	<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Join Chat</button></center>
+	
+	<center>
+		<div style="display: none; font-size: 30px; color: white; margin-bottom: 20px;">Zip Codes & Printers:</div>
+		<div id="divZips" style="display: none; margin-bottom: 20px;">
 		<iframe style="height: 600px; width: 80%; max-width: 1000px;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQW6xWdo9kVVwDdk4GBZW4-PA-QX2BzjxAmdqZtb2Tsmhc8Rt54dCPQtr_paplN3rbZhNdtVcLyowfY/pubhtml?widget=true&amp;headers=false"></iframe>
 	</div>
 	</center>
-
-	<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Join Chat</button></center>
-
-	<center><a href="/contest"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Design Contest</button></a></center>
-	
-	<center>
-		<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Take Action</button></a>
-	<center>
-
-	<center><button onclick="window.location='/';" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Home</button></center>
-
-	<center>
-		<div id="divPictures" style="color: white; max-width: 600px; text-align: left;  margin-bottom: 0px; margin-top: 16px; padding-bottom: 10px; padding-left: 7px; padding-top: 5px;">
-	  <!--<a href="/contest/HEXpostcarddesign_015.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_015.jpg" style="max-width: 100%" loading="lazy"></img></a><br><br>-->
-		<a href="/contest/HEXpostcarddesign_004.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_004.jpg" style="max-width: 100%" loading="lazy"></img></a>
-		<!--<a href="/contest/HEXpostcarddesign_014dark.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014dark.jpg" style="max-width: 100%" loading="lazy"></img></a><br>-->
-		<div>
-	</center>
-
 
 	<center><div style="margin-bottom: 120px"></div></center>
 
