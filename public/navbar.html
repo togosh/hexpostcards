@@ -2,9 +2,15 @@
   @media screen and (max-width: 550px) {
     #navId { visibility: hidden; }
 }
+.dropdown-item {
+  color: rgba(255,255,255,.5) !important;
+}
+.dropdown-item:hover {
+  background-color: grey;
+}
 </style>
 
-<nav id="navId" class="navbar navbar-expand-sm navbar-light bg-light navbar-default ">
+<nav id="navId" class="navbar navbar-expand-sm navbar-dark bg-dark navbar-default">
   <div class="container-fluid">
     <!--<a class="navbar-brand" href="#">Navbar</a>-->
     <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +25,7 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Designs
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu dropdown-menu-dark" style="color: white !important; background-color: #343a40;" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="/designs/HEXpostcard_6.5x9_Fillup_SideA_03.pdf" target="_blank">6.5x9_Fillup_SideA.pdf</a></li>
             <li><a class="dropdown-item" href="/designs/HEXpostcard_6.5x9_Fillup_SideB_03.pdf" target="_blank">6.5x9_Fillup_SideB.pdf</a></li>
             <li><hr class="dropdown-divider"></li>
