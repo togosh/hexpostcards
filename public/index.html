@@ -51,7 +51,7 @@
 
 				var leaderboardData = undefined;
 				var leaderboardDataString = undefined;
-				var sacrificeTotal = undefined;
+				//var donationTotal = undefined;
 
         socket.on('hexPrice', function (price) {
             if (price && price !== ''){
@@ -64,13 +64,13 @@
 					console.log(data)
             if (data && data !== ''){
 
-							sacrificeTotal = data.reduce( function(a, b){
-									return a + b["usdValue"];
-							}, 0);
-							sacrificeTotal = currencyFormatter.format(sacrificeTotal);
-							console.log("sacrificeTotal");
-							console.log(sacrificeTotal);
-							$('#sacrificeTotal').html(sacrificeTotal);
+							//donationTotal = data.reduce( function(a, b){
+							//		return a + b["usdValue"];
+							//}, 0);
+							//donationTotal = currencyFormatter.format(donationTotal);
+							//console.log("donationTotal");
+							//console.log(donationTotal);
+							//$('#donationTotal').html(donationTotal);
 
 							/*
 							var data = data.map(item => {
@@ -149,7 +149,6 @@
 				
 				if (distance < 0) {
 					clearInterval(x);
-					$('#countdownTimer').html("SACRIFICE PHASE ENDED!");
 				}
 			}, 1000);
 		</script>
@@ -167,20 +166,13 @@
     <div id="mainSection" style="padding-bottom: 30px;">
         <center><img src="hexpostcardslogo.png" style="max-width: 100%; height:auto;"></img></center>
 
-		<center><div style="margin-top: 0px; margin-bottom: 20px; font-size: 30px;"><a href="/sacrifice" style="color: red;" onmouseover="this.style.color='#fa8072';" onmouseout="this.style.color='red';">Postcard Sacrifice is Live!</a></div></center>
-
-		<center><p id="countdownTimer" style="font-size: 30px; color: white; margin-top: 10px;"></p></center>
-		<!--<center><div id="sacrificeTotal" style="margin-bottom: 20px; color: white; font-size: 30px;">$135,000</div></center>-->
-
 		<!--<center><div style="margin-bottom: 30px; font-size: 24px;"><a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/" target="_blank">Direct Mail Statistics</a></div></center>-->
-		<center><div style="margin-bottom: 20px; font-size: 30px;"><a href="/sacrifice">BYPASS THE GATEKEEPING!</a></div></center>
+		<center><div style="margin-bottom: 20px; font-size: 30px;"><a href="/donate">BYPASS THE GATEKEEPING!</a></div></center>
 
 		<center><div id="postcardsMailed" style="margin-bottom: 30px; color: white; font-size: 30px;">394716</div></center>
 
 		<center><img src="proof005.png" style="max-width: 100%; height:auto;"></img></center>
 
-		<!--<center><a href="/sacrifice"><button type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 0px;">Sacrifice</button></a></center>-->
-	
 		<center><a href="https://hex.com/" target="_blank"><button type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 0px;">What is HEX?</button></a></center>
 
 		<center>
@@ -351,7 +343,7 @@ TIP: Request that all leftover postcards from printing be mailed to you (they us
 			<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px;">Take Action</button></a>
 		<center>
 
-		<center><a href="/sacrifice"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Sacrifice</button></a></center>
+		<center><a href="/donate"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Donate</button></a></center>
 
 		<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 0px;">Join Chat</button></center>
 

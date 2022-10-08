@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>HEXpostcards</title> 
-    <meta name="description" content="Postcard Sacrifice is Live! Support Freedom of Promotion!">
+    <meta name="description" content="Support the Freedom of Promotion!">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- JQUERY -->
@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://HEXpostcards.com/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="HEXpostcards.com">
-    <meta property="og:description" content="Postcard Sacrifice is Live! Support Freedom of Promotion!">
+    <meta property="og:description" content="Support the Freedom of Promotion!">
     <meta property="og:image:url" content="https://hexpostcards.com/Hexpostcards_sacrifice_03.png">
 
     <!-- TWITTER -->
@@ -27,7 +27,7 @@
     <meta property="twitter:domain" content="HEXpostcards.com">
     <meta property="twitter:url" content="https://HEXpostcards.com/">
     <meta name="twitter:title" content="HEXpostcards.com">
-    <meta name="twitter:description" content="Postcard Sacrifice is Live! Support Freedom of Promotion!">
+    <meta name="twitter:description" content="Support the Freedom of Promotion!">
     <meta name="twitter:image" content="https://hexpostcards.com/Hexpostcards_sacrifice_03.png">
 
     <!-- ICONS -->
@@ -51,7 +51,7 @@
 
 				var leaderboardData = undefined;
 				var leaderboardDataString = undefined;
-				var sacrificeTotal = undefined;
+				var donationTotal = undefined;
 
         socket.on('hexPrice', function (price) {
             if (price && price !== ''){
@@ -64,14 +64,14 @@
 					console.log(data)
             if (data && data !== ''){
 
-							//sacrificeTotal = Object.values(data).reduce((a, b) => Number(a.usdValue) + Number(b.usdValue));
-							sacrificeTotal = data.reduce( function(a, b){
+							//donationTotal = Object.values(data).reduce((a, b) => Number(a.usdValue) + Number(b.usdValue));
+							donationTotal = data.reduce( function(a, b){
 									return a + b["usdValue"];
 							}, 0);
-							sacrificeTotal = currencyFormatter.format(sacrificeTotal);
-							console.log("sacrificeTotal");
-							console.log(sacrificeTotal);
-							$('#sacrificeTotal').html(sacrificeTotal);
+							donationTotal = currencyFormatter.format(donationTotal);
+							console.log("donationTotal");
+							console.log(donationTotal);
+							$('#donationTotal').html(donationTotal);
 
 							var data = data.map(item => {
 								const container = {};
@@ -186,6 +186,7 @@
     </script>
 
 	<script>
+		/*
 		var countDownDate = new Date("Dec 2, 2022 00:00:00").getTime();
 		
 		var x = setInterval(function() {
@@ -197,13 +198,13 @@
 			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 				
-			$('#countdownTimer').html(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
+			//$('#countdownTimer').html(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
 			
 			if (distance < 0) {
 				clearInterval(x);
-				$('#countdownTimer').html("SACRIFICE PHASE ENDED!");
 			}
 		}, 1000);
+		*/
 		</script>
 
     <style>
@@ -232,8 +233,6 @@
 		<div>
 	</center>
 
-	<center><p id="countdownTimer" style="font-size: 30px; color: white; margin-top: 20px; padding-bottom: 10px;"></p></center>
-
 	<center>
 		<center><!--<div style="margin-bottom: 20px; color: white;">Leaderboard (In Development)</div>--></center>
 		<div id="divLeader" style="display: none; width: 100%; max-width: 620px; max-height: 380px; min-height: 380px; margin-bottom: 20px; color: white;">
@@ -249,7 +248,7 @@
     </div>
 	</center>
 
-	<center><div id="sacrificeTotal" style="margin-bottom: 0px; color: white; font-size: 30px; padding-top: 30px;">$135,000</div></center>
+	<center><div id="donationTotal" style="margin-bottom: 0px; color: white; font-size: 30px; padding-top: 30px;"></div></center>
 
 	<center>
 	<div style="margin-top: 0px; max-width: 870px; font-size: 18px;">
@@ -258,7 +257,7 @@
 	<center>
 		<div style="margin-top: 30px; margin-bottom: 0px; color: white;">
 			
-				<div style="font-size: 30px; color: white; margin-bottom: 10px;">Sacrifice Addresses:<br></div>
+				<div style="font-size: 30px; color: white; margin-bottom: 10px;">Donation Addresses:<br></div>
 				<a href="https://etherscan.io/address/0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668" target="_blank" style="font-size: 16px">
 				<!--<div style="margin-top: 30px; padding-bottom: 30px;">0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668</div>-->
 				0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668
@@ -283,11 +282,7 @@
 		</div>
 	</center>
 
-	<center><div style="margin-bottom: 30px; color: white;">- Sacrifice is live!</div></center>
-
 	<center><div style="margin-bottom: 30px; color: white;">- Support the Freedom of Promotion!</div></center>
-
-	<center><div style="margin-bottom: 30px; color: white;">- Sacrifice phase ends December 2nd 2022</div></center>
 
 	<center><div style="margin-bottom: 30px; color: white;">- Wallets may be airdropped future projects</div></center>
 
@@ -365,9 +360,6 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 	</center>
 
 	<center><div style="margin-bottom: 120px"></div></center>
-
-	<center><div style="margin-bottom: 40px;"><a href="/HEXpostcards_sacrifices.json" target="_blank">HEXpostcards_sacrifices.json</a></div></center>
-
 
 	</div>  
 </div>
