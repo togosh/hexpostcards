@@ -394,7 +394,8 @@ async function sumInputsERC20(address){
 		) 
 		&& a.from.toLowerCase() != "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640".toLowerCase() 
 		&& a.from.toLowerCase() != "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc".toLowerCase() 
-		&& a.from.toLowerCase() != "0x25D4CCeba035AabB7aC79C4F2fEaD5bC74E6B9d8".toLowerCase();
+		&& a.from.toLowerCase() != "0x25D4CCeba035AabB7aC79C4F2fEaD5bC74E6B9d8".toLowerCase()
+    && a.from.toLowerCase() != "0x25d4365a85a8ea8c5baa773206f48e72a1a3b9d8".toLowerCase();
 	});
   
   const map = new Map();
