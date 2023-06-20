@@ -215,11 +215,11 @@ async function getCurrentEthPrice(){
 // PRICE
 
 if (CONFIG.price.enabled) {
-	var priceTimer = CONFIG.price.timer * 60 * 1000;
-	console.log("setup price timer");
-	setInterval(function() {
-		updatePrice();
-	}, priceTimer); 
+	//var priceTimer = CONFIG.price.timer * 60 * 1000;
+	//console.log("setup price timer");
+	//setInterval(function() {
+	//	updatePrice();
+	//}, priceTimer); 
 }
 
 var priceUrl = "https://api.nomics.com/v1/currencies/ticker?key=" + CONFIG.price.nomicsKey + "&ids=HEX";
