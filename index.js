@@ -82,7 +82,7 @@ if(!DEBUG){ httpsServer = https.createServer(httpsOptions, app);}
 if(!DEBUG){ app.use((req, res, next) => 
 {
   if(req.protocol === 'http') { 
-    res.redirect(301, 'https://' + hostname); 
+    res.redirect(307, 'https://' + hostname); 
   }
   next(); 
 }); }
