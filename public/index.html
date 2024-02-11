@@ -96,7 +96,7 @@
 
         $(document).ready(function() {
 					$('#nav').load('/navbar.html');
-					$('#postcardsMailed').html(Number(postcardsMailedCount).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}) + " postcards sent!");
+					$('#postcardsMailed').html(Number(postcardsMailedCount).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}));
 					
 			$('#buttonInstructions').click(function() { 
 				$('#divInstructions').toggle();
