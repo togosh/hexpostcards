@@ -1,6 +1,7 @@
 <style>
 .dropdown-item {
-  color: rgba(255,255,255,.5) !important;
+  color: rgba(255,255,255,.7) !important;
+  font-size: 17px;
 }
 .dropdown-item:hover {
   background-color: grey;
@@ -11,16 +12,25 @@
     text-decoration: none !important;
     margin-right: 10px;
 }
+@media (max-width: 767.98px) {
+  .navbar-nav {
+    margin-left: auto;
+  }
+
+  .navbar-nav .nav-item {
+    text-align: right;
+  }
+}
 </style>
 
-<nav id="navId" class="navbar navbar-expand-sm navbar-dark bg-dark navbar-default">
+<nav id="navId" class="navbar navbar-expand-sm navbar-dark bg-dark navbar-default" style="padding-bottom: 0px;">
   <div class="container-fluid">
     <!--<a class="navbar-brand" href="#">Navbar</a>-->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-top: 10px;">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
