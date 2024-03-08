@@ -46,7 +46,7 @@
     <meta name="theme-color" content="#ffffff">
     
     <script>
-			const postcardsMailedCount = 400000;
+			const postcardsMailedCount = 450000;
 			  var currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD'});
 				var currencyFormatterNoDecimal = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
 			
@@ -99,6 +99,7 @@
 
         $(document).ready(function() {
 					$('#nav').load('/navbar.html');
+					$('#footer').load('/footer.html');
 					$('#postcardsMailed').html(Number(postcardsMailedCount).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits:0}));
 					
 			$('#buttonInstructions').click(function() { 
@@ -179,7 +180,7 @@
 				<br/><br/>
 				Learn the art of independent mail sending on our website, or contribute to our cause by <b><a href="/donate">making a donation;</a></b> we operate on a <b><u>no-profit</u></b> basis, passionately spreading the HEX and PulseChain message through printed postcards.
 				<br/><br/>
-				Since our inception in 2022, we've already sent <b>over <span id="postcardsMailed">400000</span> postcards</b> to the most affluent zip codes in the USA. Yet, our vision extends further – we aim to amplify our impact by sending <u>multiple rounds</u> of postcards and expanding our reach <u>internationally</u>. Join us as we continue to evolve, grow, and take the HEXpostcards initiative to new heights.
+				Since our inception in 2022, we've already sent <b>over <span id="postcardsMailed">450000</span> postcards</b> to the most affluent zip codes in the USA. Yet, our vision extends further – we aim to amplify our impact by sending <u>multiple rounds</u> of postcards and expanding our reach <u>internationally</u>. Join us as we continue to evolve, grow, and take the HEXpostcards initiative to new heights.
 			</div>
 		</center>
 
@@ -410,3 +411,4 @@ TIP: Request that all leftover postcards from printing be mailed to you (they us
 		<center><div style="margin-bottom: 120px"></div></center>
 	</div>  
 </div>
+<div ><div id="footer" style="margin-bottom: 0px;"></div></div>
