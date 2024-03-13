@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HEXpostcards</title> 
+    <meta name="description" content="Meet the postcard team!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- SOCKETIO -->
+    <script src="/socket.io/socket.io.js"></script>
+
+	<!-- STYLE -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <!-- FACEBOOK -->
+    <meta property="og:url" content="https://HEXpostcards.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HEXpostcards.com">
+    <meta property="og:description" content="Meet the postcard team!">
+    <meta property="og:image:url" content="https://hexpostcards.com/hexpostcards_team.png">
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="HEXpostcards.com">
+    <meta property="twitter:url" content="https://HEXpostcards.com/">
+    <meta name="twitter:title" content="HEXpostcards.com">
+    <meta name="twitter:description" content="Meet the postcard team!">
+    <meta name="twitter:image" content="https://hexpostcards.com/hexpostcards_team.png">
+
+	<!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    
+    <script>
+        var socket = io.connect();
+
+        socket.on('hexPrice', function (price) {
+            if (price && price !== ''){
+                document.title = 'HEXpostcards $' + price;
+            }
+        });
+
+        $(document).ready(function() {
+					$('#nav').load('/navbar.html');
+					$('#footer').load('/footer.html');
+					$('#buttonInternational').click(function() { 
+						$('#divInternational').toggle();
+					});
+					$('#buttonVideos').click(function() { 
+						$('#divVideos').toggle();
+						$('#divVideos').get(0).scrollIntoView();
+					});
+					$('#buttonAction').click(function() { 
+						$('#divAction').toggle();
+					});
+				});
+    </script>
+
+    <style>
+		.button {background-color: #3B3B3B !important;}
+		.div {color: white !important;}
+		a {text-decoration: underline !important;}
+		button {background-color: #6B6B6B !important; color: white;}
+		.image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+		.image-card {
+			margin-bottom: 20px;
+			padding-bottom: 20px;
+		}
+    </style>
+</head>
+<body style="background-color:black;">
+<div id="nav" style="margin-bottom: 0px;"></div>
+<div style="font-size: 18px;">
+    <div id="mainSection" style="padding-bottom: 0px;">
+    <center><a href="https://HEXpostcards.com"><img src="/hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
+
+		<center>
+			<div id="divPictures02" style="color: white; text-align: left;  margin-bottom: 0px; margin-top: 16px; padding-bottom: 10px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
+			<div class="image-container">
+				<div class="col-md-3 image-card">
+					<img src="/togosh_pulsechain.png" style="width: 300px; height: 300px;" loading="lazy"></img><br>
+					Togosh<br> (Software Developer)<br><br>
+					<a href="https://hexdailystats.com/" target="_blank">HEXdailystats.com</a><br>
+					<br>
+					<a href="https://togosh.medium.com/" target="_blank">togosh.medium.com</a><br>
+					<a href="https://t.me/togosh" target="_blank">t.me/togosh</a><br>
+				</div>
+
+				<div class="col-md-3 image-card">
+					<img src="/fillupbanks_400x400.png" style="width: 300px; height: 300px;" loading="lazy"></img><br>
+					Fillup Banks<br> (Designer, Printer)<br><br>
+					<a href="https://HEX.FillupBanks.com" target="_blank">hex.fillupbanks.com</a><br><br>
+					<a href="https://twitter.com/fillup_banks" target="_blank">twitter.com/fillup_banks</a><br>
+				</div>
+
+				<div class="col-md-3 image-card">
+					<img src="/ecobuildr_400x400.jpg" style="width: 300px; height: 300px;" loading="lazy"></img><br>
+					EcoBuildr<br> (Designer)<br><br>
+					<a href="https://mailHEX.xyz" target="_blank">mailHEX.xyz</a><br>
+					<a href="https://defipuzzle.xyz" target="_blank">defipuzzle.xyz</a><br><br>
+					<a href="https://www.youtube.com/HEXfutures" target="_blank">youtube.com/HEXfutures</a><br>
+					<a href="https://twitter.com/EcoBuildr" target="_blank">twitter.com/EcoBuildr</a><br>
+				</div>
+
+				<div class="col-md-3 image-card">
+					<img src="/victor_400x400.jpg" style="width: 300px; height: 300px;" loading="lazy"></img><br>
+					Victor<br> (Social Media)<br><br>
+					<a href="https://www.youtube.com/@HEXFanNetwork" target="_blank">youtube.com/@HEXFanNetwork</a><br>
+					<a href="https://twitter.com/HexFanNetwork" target="_blank">twitter.com/HexFanNetwork</a><br>
+					<a href="https://twitter.com/VicHFN" target="_blank">twitter.com/VicHFN</a><br>
+				</div>
+			</div>
+			</div>
+		</center>
+
+		<center><div style="color: white; padding-top: 20px; padding-bottom: 10px;">(NOTE: If you have helped the project, you are part of the team!)</div></center> 
+
+		<center><a href="/contest"><button type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 10px;">Design Contest</button></a></center>
+
+		<center>
+			<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px;">Take Action</button></a>
+		<center>
+
+	    <center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Join Chat</button></center>
+
+		<center><a href="/donate"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Donate</button></a></center>
+
+		<center><button onclick="window.location='/';" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Home</button></center>
+
+		<center><div style="margin-bottom: 120px"></div></center>
+	</div>  
+</div>
+<div ><div id="footer" style="margin-bottom: 0px;"></div></div>

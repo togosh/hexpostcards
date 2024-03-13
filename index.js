@@ -97,10 +97,16 @@ app.get("/sac", function(req, res){ res.sendFile('/public/donate.html', {root: _
 app.get("/takeaction", function(req, res){ res.sendFile('/public/takeaction.html', {root: __dirname}); });
 app.get("/advertise", function(req, res){ res.sendFile('/public/takeaction.html', {root: __dirname}); });
 app.get("/list", function(req, res){ res.sendFile('/public/takeaction.html', {root: __dirname}); });
+app.get("/team", function(req, res){ res.sendFile('/public/team.html', {root: __dirname}); });
+app.get("/about", function(req, res){ res.sendFile('/public/team.html', {root: __dirname}); });
 
 app.get("/grabdata", function (req, res) {
   grabData();
   res.send(new Date().toISOString() + ' - Grab Data!');
+});
+
+app.get("*", function(req, res){ 
+  res.sendFile('/public/index.html', {root: __dirname}); 
 });
 
 async function grabData(){
