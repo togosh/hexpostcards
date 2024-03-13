@@ -105,10 +105,6 @@ app.get("/grabdata", function (req, res) {
   res.send(new Date().toISOString() + ' - Grab Data!');
 });
 
-app.get("*", function(req, res){ 
-  res.sendFile('/public/index.html', {root: __dirname}); 
-});
-
 async function grabData(){
 	console.log("grabData()");
   if (ethPrices) {
