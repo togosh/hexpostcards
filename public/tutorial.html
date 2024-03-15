@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HEXpostcards</title> 
+    <meta name="description" content="Learn how to send HEX and PulseChain direct mail!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- SOCKETIO -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- STYLE -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- FACEBOOK -->
+    <meta property="og:url" content="https://HEXpostcards.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HEXpostcards.com">
+    <meta property="og:description" content="Learn how to send HEX and PulseChain direct mail!">
+    <meta property="og:image:url" content="https://hexpostcards.com/hexpostcards_tutorial_image.png">
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="HEXpostcards.com">
+    <meta property="twitter:url" content="https://HEXpostcards.com/">
+    <meta name="twitter:title" content="HEXpostcards.com">
+    <meta name="twitter:description" content="Learn how to send HEX and PulseChain direct mail!">
+    <meta name="twitter:image" content="https://hexpostcards.com/hexpostcards_tutorial_image.png">
+
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css">
+    <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <script>	
+        $(document).ready(function() {
+			$('#nav').load('/navbar.html');
+			$('#footer').load('/footer.html');
+		});	
+    </script>
+
+    <style>
+		.button {background-color: #3B3B3B !important;}
+		.div {color: white !important;}
+		a {text-decoration: underline !important;}
+		.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+			background-color: blue;
+			color: white;
+		}
+		button {background-color: #6B6B6B !important; color: white;}
+		.table {color: white !important;}
+
+		.img-main {
+			height: auto;
+			display: block;
+			overflow: hidden; /* Hide the overflow (rest of the image) */
+			padding-bottom: 28px;
+		}
+		.image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+		.image-card {
+			margin-bottom: 20px;
+			padding-bottom: 20px;
+		}
+    </style>
+</head>
+<body style="background-color:black;">
+<div id="nav" style="margin-bottom: 0px;"></div>
+<div style="font-size: 18px">
+	<div id="mainSection" style="padding-bottom: 30px;">
+	<center><a href="https://HEXpostcards.com"><img src="/hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
+
+	<center><img src="proof005.png" style="max-width: 100%; height:auto;"></img></center>
+
+	<center><div id="donationTotal" style="margin-bottom: 0px; color: white; font-size: 30px; padding-top: 0px;"></div></center>-->
+	<center>
+		
+		<div id="divInstructions" style="color: white !important; text-align: left; max-width: 500px; margin-bottom: 30px; margin-top: 16px; padding-bottom: 20px; background-color: #10172d; padding-left: 20px; padding-right: 20px; padding-top: 20px;">
+			<p>With EDDM (Every Door Direct Mail), simply provide a zip code and your flat mail (postcard or flyer) will be delivered to every address along that zip code's routes!</p>
+		</div>
+	</center>
+	<center>
+		<button id="buttonInstructions" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px;" disabled>Mail Instructions</button>
+		<div id="divInstructions" style="color: white !important; text-align: left; max-width: 500px; margin-bottom: 30px; margin-top: 16px; padding-bottom: 20px; background-color: #10172d; padding-left: 20px; padding-right: 20px; padding-top: 20px;">
+			<p style="font-size: 18px; margin-bottom: 20px;">Follow these 4 easy steps to start mailing today:</p>
+			<ol>
+				<li>Find a printer/mailer, We have 28 vendors across 6 countries to choose from</li>
+				<br>
+				<li>Upload your design. We have 30 already created designs to choose from</li>
+				<br>
+				<li>Select your desired routes for delivery</li>
+				<br>
+				<li>Complete payment</li>
+			</ol>
+		</div>
+	</center>
+	<center>
+		<div style="text-align: center; max-width: 840px; margin: 0 auto;"> <!-- Centering Container -->
+			<div style="display: flex; justify-content: center; color: white !important; max-width: 840px; flex-wrap: wrap; padding-top: 0px;">
+				<div style="width: 100%; max-width: 400px; background-color: #10172d; margin-bottom: 30px; margin-left: 1%; margin-right: 1%;">
+					<!-- Fourth Flex Item Content -->
+					<div style="width: 400px;">
+						Tutorial Video:<br>
+						<div style="height: 315px;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/GOmW6ZDIDro" title="Quick Postcards for your neighborhood" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+					</div>
+				</div>
+				<div style="width: 100%; max-width: 400px; background-color: #10172d; margin-bottom: 30px; padding-top: 10px; margin-left: 1%; margin-right: 1%;">
+					<!-- Second Flex Item Content -->
+					<a href="https://www.printingforless.com/Every-Door-Direct-Mail.html" target="_blank"><img src="pfl.png" style="max-width: 100%; padding-bottom: 5px;"></a>
+					<p>PrintingForLess [PFL] (6.25" x 9")</p>
+					<p>[$0.48 per postcard]</p>
+					<p><a href="https://www.printingforless.com/Every-Door-Direct-Mail.html" target="_blank">https://www.printingforless.com/Every-Door-Direct-Mail.html</a></p>
+					<p>(Request samples for 20% off first order)</p>
+					<p>(Payment in Credit Card or Check)</p>
+					- Ink: High Gloss UV Coating<br>
+					- Paper: 120# Gloss Cover 14 pt
+				</div>
+			</div>
+			<div style="display: flex; justify-content: center; color: white !important; max-width: 840px; flex-wrap: wrap;">
+				<div style="width: 100%; max-width: 400px; background-color: #10172d; margin-bottom: 30px; margin-left: 1%; margin-right: 1%;">
+					<!-- Third Flex Item Content -->
+					<div style="width: 400px; color: white;">
+						<a href="https://www.usps.com/business/vendors.htm" target="_blank"><img src="usps003.png" style="max-width: 100%; padding-bottom: 5px;"></a><br>
+						<p>USPS Printer Vendors</p>
+						<a href="https://www.usps.com/business/vendors.htm" target="_blank">https://www.usps.com/business/vendors.htm</a><br>
+						<br>
+						TIP: Request that all leftover postcards from printing be mailed to you (they use large machines that print them in batches, so usually always leftovers)<br>
+					</div>
+				</div>
+				<div style="width: 100%; max-width: 400px; margin-bottom: 30px; background-color: #10172d; padding-top: 10px; margin-left: 1%; margin-right: 1%;">
+					<!-- First Flex Item Content -->
+					<a href="https://hex.fillupbanks.com/" target="_blank"><img src="/hexpromo.png" style="width: 100%; max-width: 450px; padding-bottom: 20px;"></a>
+					<p>Fillup Banks (6.5" x 9")</p>
+					<p>[$0.33 per postcard]</p>
+					<p><a href="https://hex.fillupbanks.com/product/direct-mail/" target="_blank">https://HEX.fillupbanks.com/</a></p>
+					<p><a href="https://twitter.com/fillup_banks" target="_blank">https://twitter.com/fillup_banks</a></p>
+					<p>(Max production ~$10k per week)</p>
+					<p>(Payment in Cryptocurrency)</p>
+					<p>- Paper: 14 pt thickness</p>
+				</div>
+			</div>
+		</div>
+	</center>
+	
+
+	<center>
+		<button id="buttonZips" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Zip Codes</button>
+		<div id="divZips" style="">
+			<iframe style="height: 600px; width: 80%; max-width: 1000px;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQW6xWdo9kVVwDdk4GBZW4-PA-QX2BzjxAmdqZtb2Tsmhc8Rt54dCPQtr_paplN3rbZhNdtVcLyowfY/pubhtml?widget=true&amp;headers=false"></iframe>
+			<br>
+			<div style="margin-bottom: 10px; margin-top: 10px;"><a href="https://docs.google.com/spreadsheets/d/1WN1dFyRtjxu8Ai-k3E1LQVIuNLSdWb4vncuSLiHU3QE/" target="_blank">Google Sheet Link</a></div>
+			<div style="margin-bottom: 10px; margin-top: 10px;"><a style="margin-bottom: 10px; margin-top: 10px;" href="https://www.city-data.com/" target="_blank">City-Data.com (USA Zip Code Research)</a></div>
+		</div>
+  	</center>
+
+	<center>
+		<button id="buttonPrinters" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Printers</button>
+		<div id="divPrinters" style="">
+			<iframe style="height: 600px; width: 80%; max-width: 1000px;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQW6xWdo9kVVwDdk4GBZW4-PA-QX2BzjxAmdqZtb2Tsmhc8Rt54dCPQtr_paplN3rbZhNdtVcLyowfY/pubhtml?gid=953019490&single=true&widget=true&amp;headers=false"></iframe>
+			<br>
+			<div style="margin-bottom: 10px; margin-top: 10px;"><a href="https://docs.google.com/spreadsheets/d/1WN1dFyRtjxu8Ai-k3E1LQVIuNLSdWb4vncuSLiHU3QE/edit#gid=953019490" target="_blank">Google Sheet Link</a></div>
+		</div>
+  	</center>
+
+	<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Join Chat</button></center>
+
+	<center><img src="hexpostcards_richard_wishsatoshisentletter_tweet.png" style="max-width: 100%; height:auto; margin-top: 40px;"></img></center>
+
+	<center><div style="margin-bottom: 120px"></div></center>
+
+	</div>  
+</div>
+<div ><div id="footer" style="margin-bottom: 0px;"></div></div>
