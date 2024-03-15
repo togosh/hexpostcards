@@ -227,6 +227,15 @@
 			overflow: hidden; /* Hide the overflow (rest of the image) */
 			padding-bottom: 28px;
 		}
+		.image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+		.image-card {
+			margin-bottom: 20px;
+			padding-bottom: 20px;
+		}
     </style>
 </head>
 <body style="background-color:black;">
@@ -235,9 +244,7 @@
 	<div id="mainSection" style="padding-bottom: 30px;">
 	<center><a href="https://HEXpostcards.com"><img src="/hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
 
-	<center>
-		<img src="/hexpostcards_coreycosta.png" class="img-main" loading="lazy"></img>
-	</center>
+	<!-- <center><img src="proof007.png" style="max-width: 100%; height:auto;"></img></center> -->
 
 	<!-- <center>
 	<div class="col-sm" style="max-width: 430px; width: 100%;">
@@ -265,31 +272,50 @@
 
 	<center><div id="donationTotal" style="margin-bottom: 0px; color: white; font-size: 30px; padding-top: 30px;"></div></center>-->
 
+	<center><button id="buttonTeam" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px;" disabled>Meet the Team</button></center>
+	<center>
+		<div id="divPictures02" style="color: white; text-align: left;  margin-bottom: 0px; margin-top: 16px; padding-bottom: 10px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
+		<div class="image-container">
+			<div class="col-md-3 image-card">
+				<img src="/togosh_pulsechain.png" style="width: 300px; height: 300px;" loading="lazy"></img><br>
+				Togosh<br> (Developer)<br><br>
+				<a href="https://hexdailystats.com/" target="_blank">HEXdailystats.com</a><br>
+				<br>
+				<a href="https://togosh.medium.com/" target="_blank">togosh.medium.com</a><br>
+				<a href="https://t.me/togosh" target="_blank">t.me/togosh</a><br>
+			</div>
+
+			<div class="col-md-3 image-card">
+				<img src="/fillupbanks_400x400.png" style="width: 300px; height: 300px;" loading="lazy"></img><br>
+				Fillup Banks<br> (Designer, Printer)<br><br>
+				<a href="https://HEX.FillupBanks.com" target="_blank">HEX.fillupbanks.com</a><br><br>
+				<a href="https://twitter.com/fillup_banks" target="_blank">twitter.com/fillup_banks</a><br>
+			</div>
+
+			<div class="col-md-3 image-card">
+				<img src="/ecobuildr_250x250.jpg" style="width: 300px; height: 300px;" loading="lazy"></img><br>
+				EcoBuildr<br> (Designer)<br><br>
+				<a href="https://mailHEX.xyz" target="_blank">mailHEX.xyz</a><br>
+				<a href="https://defipuzzle.xyz" target="_blank">defipuzzle.xyz</a><br><br>
+				<a href="https://www.youtube.com/HEXfutures" target="_blank">youtube.com/HEXfutures</a><br>
+				<a href="https://twitter.com/EcoBuildr" target="_blank">twitter.com/EcoBuildr</a><br>
+			</div>
+
+			<div class="col-md-3 image-card">
+				<img src="/victor_400x400.jpg" style="width: 300px; height: 300px;" loading="lazy"></img><br>
+				Victor<br> (Social Media)<br><br>
+				<a href="https://www.youtube.com/@HEXFanNetwork" target="_blank">youtube.com/@HEXFanNetwork</a><br>
+				<a href="https://twitter.com/HexFanNetwork" target="_blank">twitter.com/HexFanNetwork</a><br>
+				<a href="https://twitter.com/VicHFN" target="_blank">twitter.com/VicHFN</a><br>
+			</div>
+		</div>
+		</div>
+	</center>
+
 	<center>
 	<div style="margin-top: 0px; max-width: 870px; font-size: 18px;">
 	<div style="display: flex; flex-wrap: wrap; justify-content: center;">
 	<div class="col-sm" style="max-width: 430px; width: 100%;">
-	<center>
-		<div style="margin-top: 10px; margin-bottom: 40px; color: white;">
-			
-				<div style="font-size: 30px; color: white; margin-bottom: 10px;">Donation Addresses:<br></div>
-				<a href="https://etherscan.io/address/0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668" target="_blank" style="font-size: 16px">
-				<!--<div style="margin-top: 30px; padding-bottom: 30px;">0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668</div>-->
-				0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668
-				</a>
-				<br>
-				<div style="color:lightgrey; font-size:12px;">
-					(USDC ONLY - ETHEREUM CHAIN ONLY)
-				</div>
-				<a href="https://etherscan.io/address/0x25D4CCeba035AabB7aC79C4F2fEaD5bC74E6B9d8" target="_blank" style="font-size: 16px">
-				0x25D4CCeba035AabB7aC79C4F2fEaD5bC74E6B9d8
-				</a>
-				<br>
-				<div style="color:lightgrey; font-size:12px;">
-						(ALL COINS - ETHEREUM AND PULSECHAIN)
-				</div>
-		</div>
-	</center>
 
   </div>
 
@@ -330,7 +356,7 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 	<!--<center><a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/" target="_blank"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Mail Statistics</button></a></center>-->
 	
 	<center>
-		<button id="buttonGoals" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Goals</button>
+		<button id="buttonGoals" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 26px;" disabled>Goals</button>
 		<div id="divGoals" style="max-width: 400px; text-align: left; margin-bottom: 20px; color: white; margin-left: 30px; margin-right: 10px;">
 			1. Send postcards to wealthiest 500,000+ addresses in USA 5-7+ times in a row<br>
 			<br>
@@ -339,7 +365,7 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 	<center>
 	
 	<center>
-		<center><button id="buttonStats" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Mail Statistics</button></center>
+		<center><button id="buttonStats" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Mail Statistics</button></center>
 		<div id="divStats" style="max-width: 400px; text-align: left; margin-bottom: 20px; color: white; margin-left: 30px; margin-right: 10px;">
 			Postcards get a fairly high response rate 4.25%<br><br>
 			Consumers aged 45-54 are the demographic group most likely to respond to direct mail pieces.<br><br>
@@ -351,6 +377,54 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 		</div>
 	</center>
 
+	<center>
+		<button id="buttonDonate" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>No-Profit Commitment</button>
+		<div style="max-width: 400px; text-align: left; color: white; margin-left: 30px; margin-right: 10px;">
+			We want to emphasize that every dollar you donate goes directly into our mission.<br><br>
+			
+			We operate entirely on a <b><u>no-profit</u></b> basis, meaning we take zero profit and immediately allocate all funds towards printing and mailing postcards.<br><br>
+			
+			Your contribution enables us to swiftly reach our target audience with the HEX and PulseChain message, making an impact right away.<br><br>
+
+			By default, we target the wealthiest households worldwide with our postcards. However, if you have specific preferences, feel free to reach out to us on Telegram.<br><br>
+		</div>
+		<!-- <button id="buttonWhales" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Why Whales?</button>
+		<div style="width: 400px; text-align: center; color: white;">
+			Because whales <b>MOVE THE PRICE</b><br><br>
+			they have the <b>MOST MONEY</b><br><br>
+			and can <b>HOLD THE LONGEST</b><br><br>
+		</div> -->
+		<!-- <img src="/wealthdistributionchart_powerlaw.png" style="max-width: 100%; height: 300px;" loading="lazy"></img><br> -->
+		<button id="buttonDonate" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Why us?</button>
+		<div style="max-width: 400px; text-align: left; color: white; margin-left: 30px; margin-right: 10px;">
+			1. Convenience<br><br>
+
+			2. Economy of scale (by pooling funding together we can buy in bulk and get better pricing)<br><br>
+
+			3. <b><u>No-profit</u></b> printing rates in USA (~28-33 cents to print and mail a postcard, when the for profit companies charge 40-50 cents each)<br><br>
+		</div>
+		<button id="buttonDonate" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Donate</button>
+		<div style="margin-top: 10px; margin-bottom: 40px; color: white;">
+			
+				<div style="font-size: 30px; color: white; margin-bottom: 10px;">Donation Addresses:<br></div>
+				<a href="https://etherscan.io/address/0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668" target="_blank" style="font-size: 16px">
+				<!--<div style="margin-top: 30px; padding-bottom: 30px;">0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668</div>-->
+				0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668
+				</a>
+				<br>
+				<div style="color:lightgrey; font-size:12px;">
+					(USDC ONLY - ETHEREUM CHAIN ONLY)
+				</div>
+				<a href="https://etherscan.io/address/0x25D4CCeba035AabB7aC79C4F2fEaD5bC74E6B9d8" target="_blank" style="font-size: 16px">
+				0x25D4CCeba035AabB7aC79C4F2fEaD5bC74E6B9d8
+				</a>
+				<br>
+				<div style="color:lightgrey; font-size:12px;">
+						(ALL COINS - ETHEREUM AND PULSECHAIN)
+				</div>
+		</div>
+	</center>
+
 	<!-- <center>
 		<center><button id="buttonOrders" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;">Historical Orders</button></center>
 		<div id="divOrders" style="display: none; min-width: 430px; max-width: 430px; color: white; font-size: 18px;">In Development<br><br>
@@ -358,10 +432,8 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 	</center> -->
 
 	<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Join Chat</button></center>
-	
-	<center>
-		<img src="/hexpostcards_richard_outboundmessaging_tweet.png" class="img-main" loading="lazy" style="padding-top: 60px;"></img>
-	</center>
+
+	<center><img src="hexpostcards_richard_wishsatoshisentletter_tweet.png" style="max-width: 100%; height:auto; margin-top: 40px;"></img></center>
 
 	<center><div style="margin-bottom: 120px"></div></center>
 
