@@ -236,6 +236,56 @@
 			margin-bottom: 20px;
 			padding-bottom: 20px;
 		}
+		.stats-section {
+			text-align: center;
+			color: white;
+			margin: 20px 20px;
+			padding: 20px;
+			background-color: #333; /* Dark background for the stats */
+			max-width: 1336px;
+		}
+
+		.stats-section h2 {
+			margin-bottom: 20px;
+			font-size: 24px;
+		}
+
+		.stats-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+			gap: 20px;
+		}
+
+		.stat {
+			flex: 1;
+			min-width: 150px;
+			padding: 10px;
+			background: #444; /* Slightly lighter background for each stat */
+			border-radius: 8px;
+		}
+
+		.stat span {
+			display: block;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.stat p {
+			margin-top: 5px;
+			font-size: 16px;
+		}
+
+		@media (max-width: 768px) {
+			.stats-container {
+				flex-direction: column;
+			}
+
+			.stat {
+				width: 80%;
+				margin: 10px auto; /* Center the stat blocks on smaller screens */
+			}
+		}
     </style>
 </head>
 <body style="background-color:black;">
@@ -312,6 +362,26 @@
 		</div>
 		</div>
 	</center>
+	
+	<center>
+		<div class="stats-section">
+			<h2>Our Impact</h2>
+			<div class="stats-container">
+				<div class="stat">
+					<span id="postcardsSent">456,017</span>
+					<p>Postcards Sent</p>
+				</div>
+				<div class="stat">
+					<span id="zipCodesReached">77</span>
+					<p>Wealthiest USA Zip Codes Reached</p>
+				</div>
+				<div class="stat">
+					<span id="fundRaised">$190,000</span>
+					<p>Funds Raised</p>
+				</div>
+			</div>
+		</div>
+	</center>
 
 	<center>
 	<div style="margin-top: 0px; max-width: 870px; font-size: 18px;">
@@ -357,7 +427,7 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 	<!--<center><a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-statistics/" target="_blank"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 20px;">Mail Statistics</button></a></center>-->
 	
 	<center>
-		<button id="buttonGoals" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 26px;" disabled>Goals</button>
+		<button id="buttonGoals" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 0px;" disabled>Goals</button>
 		<div id="divGoals" style="max-width: 400px; text-align: left; margin-bottom: 20px; color: white; margin-left: 30px; margin-right: 10px;">
 			1. Send postcards to wealthiest 500,000+ addresses in USA 5-7+ times in a row<br>
 			<br>
@@ -396,7 +466,7 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 			and can <b>HOLD THE LONGEST</b><br><br>
 		</div> -->
 		<!-- <img src="/wealthdistributionchart_powerlaw.png" style="max-width: 100%; height: 300px;" loading="lazy"></img><br> -->
-		<button id="buttonDonate" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Why us?</button>
+		<button id="buttonWhyUs" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Why us?</button>
 		<div style="max-width: 400px; text-align: left; color: white; margin-left: 30px; margin-right: 10px;">
 			1. Convenience, We handle the entire process, from payment and taxes to communication and direct mail purchase<br><br>
 
@@ -404,9 +474,12 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 
 			3. <b><u>No-profit</u></b> printing rates in USA (~28-33 cents to print and mail a postcard, when the for-profit companies charge 40-50 cents each)<br><br>
 		</div>
+		<button id="buttonCTA" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Call to Action</button>
+		<div style="max-width: 400px; text-align: left; color: white; margin-left: 30px; margin-right: 10px;">
+			Step forward and support our mission; your donation today broadens our reach, spreading HEX and Pulsechain to thousands of mailboxes. Make a difference—donate now!<br><br>
+		</div>
 		<button id="buttonDonate" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 10px;" disabled>Donate</button>
-		<div style="margin-top: 10px; margin-bottom: 40px; color: white;">
-			
+		<div style="width: 400px; margin-top: 10px; margin-bottom: 40px; color: white;">
 				<div style="font-size: 30px; color: white; margin-bottom: 10px;">Donation Addresses:<br></div>
 				<a href="https://etherscan.io/address/0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668" target="_blank" style="font-size: 16px">
 				<!--<div style="margin-top: 30px; padding-bottom: 30px;">0x716b1E629b0d3aBd14bD1E9E6557cdfaee839668</div>-->
@@ -422,7 +495,7 @@ Reference: <a href="https://www.smallbizgenius.net/by-the-numbers/direct-mail-st
 				<br>
 				<div style="color:lightgrey; font-size:12px;">
 						(ALL COINS - ETHEREUM AND PULSECHAIN)
-				</div>
+				</div><br>
 		</div>
 	</center>
 
