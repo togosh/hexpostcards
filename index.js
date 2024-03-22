@@ -102,6 +102,7 @@ app.get("/about", function(req, res){ res.sendFile('/public/team.html', {root: _
 app.get("/tutorial", function(req, res){ res.sendFile('/public/tutorial.html', {root: __dirname}); });
 app.get("/instructions", function(req, res){ res.sendFile('/public/tutorial.html', {root: __dirname}); });
 app.get("/guide", function(req, res){ res.sendFile('/public/tutorial.html', {root: __dirname}); });
+app.get("/faq", function(req, res){ res.sendFile('/public/faq.html', {root: __dirname}); });
 
 app.get("/grabdata", function (req, res) {
   grabData();

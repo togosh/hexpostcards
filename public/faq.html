@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HEXpostcards</title> 
+    <meta name="description" content="Learn how to send HEX and PulseChain direct mail!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- SOCKETIO -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- STYLE -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- FACEBOOK -->
+    <meta property="og:url" content="https://HEXpostcards.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HEXpostcards.com">
+    <meta property="og:description" content="Read the answers to frequently asked questions!">
+    <meta property="og:image:url" content="https://hexpostcards.com/hexpostcards_tutorial_image.png">
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="HEXpostcards.com">
+    <meta property="twitter:url" content="https://HEXpostcards.com/">
+    <meta name="twitter:title" content="HEXpostcards.com">
+    <meta name="twitter:description" content="Read the answers to frequently asked questions!">
+    <meta name="twitter:image" content="https://hexpostcards.com/hexpostcards_tutorial_image.png">
+
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css">
+    <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <script>	
+        $(document).ready(function() {
+			$('#nav').load('/navbar.html');
+			$('#footer').load('/footer.html');
+		});	
+    </script>
+
+    <style>
+		.button {background-color: #3B3B3B !important;}
+		.div {color: white !important;}
+		a {text-decoration: underline !important;}
+		.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+			background-color: blue;
+			color: white;
+		}
+		button {background-color: #6B6B6B !important; color: white;}
+		.table {color: white !important;}
+
+		.img-main {
+			height: auto;
+			display: block;
+			overflow: hidden; /* Hide the overflow (rest of the image) */
+			padding-bottom: 28px;
+		}
+		.image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+		.image-card {
+			margin-bottom: 20px;
+			padding-bottom: 20px;
+		}
+		body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #121212; /* Dark background */
+            color: #ccc; /* Light text */
+        }
+        .faq-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #1e1e1e; /* Slightly lighter dark background for the container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Subtle shadow for depth */
+        }
+        .faq-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ddd; /* Lighter text color for the header */
+        }
+        .faq-search {
+            margin-bottom: 20px;
+            background-color: #333; /* Darker background for the search box */
+            border: none;
+            color: #eee; /* Light color for the search text */
+        }
+        .accordion-button {
+            font-size: 18px;
+            background-color: #333; /* Dark background for accordion header */
+            color: #eee; /* Light text for better readability, adjusted from white to soft white for comfort */
+        }
+        .accordion-button.collapsed {
+            background-color: #2c2c2c; /* Slightly different background for collapsed state */
+            color: #ddd; /* Adjusted color for collapsed state for better readability */
+        }
+        .accordion-body {
+            font-size: 16px;
+            line-height: 1.5;
+            background-color: #242424; /* Dark background for the content */
+            color: #ccc; /* Light text for readability */
+        }
+    </style>
+</head>
+<body style="background-color:black;">
+<div id="nav" style="margin-bottom: 0px;"></div>
+<div style="font-size: 18px">
+	<div id="mainSection" style="padding-bottom: 30px;">
+	<center><a href="https://HEXpostcards.com"><img src="/hexpostcardslogo.png" style="max-width: 100%"></img></a></center>
+
+	<!-- <center><img src="../hexpostcards_construction02.jpeg" style="max-width: 400px; height:auto;"></img></center> -->
+	<center>
+		<div class="faq-container">
+			<h2 class="faq-header">Frequently Asked Questions</h2>
+			<div class="accordion" id="faqAccordion">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingOne">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="color: white;">
+							Tracking / QR Code
+						</button>
+					</h2>
+					<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+						<div class="accordion-body" style="text-align: left">
+							<ul>
+								<li><a href="https://t.me/HEXpostcards/10263" target="_blank">https://t.me/HEXpostcards/10263</a></li>
+								<li><a href="https://t.me/HEXpostcards/7799" target="_blank">https://t.me/HEXpostcards/7799</a></li>
+								<li><a href="https://t.me/HEXpostcards/9910" target="_blank">https://t.me/HEXpostcards/9910</a></li><br>
+								<li><a href="https://t.me/HEXpostcards/4866" target="_blank">https://t.me/HEXpostcards/4866</a></li>
+								<li><a href="https://t.me/HEXpostcards/4607" target="_blank">https://t.me/HEXpostcards/4607</a></li>
+								<li><a href="https://t.me/HEXpostcards/419" target="_blank">https://t.me/HEXpostcards/419</a></li>
+							</ul>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</center>
+
+	<center><a href="/contest"><button type="button" style="height: 60px; width: 300px; margin-top: 20px; margin-bottom: 10px;">Design Contest</button></a></center>
+
+	<center>
+		<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px;">Take Action</button></a>
+	<center>
+
+	<center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Join Chat</button></center>
+
+	<center><a href="/donate"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Donate</button></a></center>
+
+	<center><button onclick="window.location='/';" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Home</button></center>
+
+	<center><img src="HEXpostcards_tweet_richardheart_punchthroughnoise.png" style="max-width: 100%; height:auto; margin-top: 40px;"></img></center>
+
+	<center><div style="margin-bottom: 120px"></div></center>
+	</div>  
+</div>
+
+<div ><div id="footer" style="margin-bottom: 0px;"></div></div>
