@@ -63,11 +63,15 @@ if (DEBUG){ httpPort = 3000; }
 const httpsPort = 443;
 
 var httpsOptions = undefined;
-if(!DEBUG){ httpsOptions = {
-	cert: fs.readFileSync(CONFIG.https.cert),
-	ca: fs.readFileSync(CONFIG.https.ca),
-	key: fs.readFileSync(CONFIG.https.key)
-};}
+if(!DEBUG){ 
+  httpsOptions = {
+    cert: fs.readFileSync(CONFIG.https.cert),
+    key: fs.readFileSync(CONFIG.https.key)
+  };
+  if(CONFIG.https.ca !== undefined && CONFIG.https.ca != ""){
+    httpsOptions.ca = fs.readFileSync(CONFIG.https.ca)
+  }
+}
 
 const app = express();
 
