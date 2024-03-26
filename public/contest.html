@@ -51,19 +51,185 @@
         });
 
         $(document).ready(function() {
-					$('#nav').load('/navbar.html');
-					$('#footer').load('/footer.html');
-					$('#buttonInternational').click(function() { 
-						$('#divInternational').toggle();
+			$('#nav').load('/navbar.html');
+			$('#footer').load('/footer.html');
+			$('#buttonInternational').click(function() { 
+				$('#divInternational').toggle();
+			});
+			$('#buttonVideos').click(function() { 
+				$('#divVideos').toggle();
+				$('#divVideos').get(0).scrollIntoView();
+			});
+			$('#buttonAction').click(function() { 
+				$('#divAction').toggle();
+			});
+		});
+
+		document.addEventListener("DOMContentLoaded", function() {
+			var container = document.querySelector('.image-container');
+			var images = Array.from(container.querySelectorAll('.image-card'));
+
+			// Function to shuffle an array
+			function shuffle(array) {
+				for (let i = array.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[array[i], array[j]] = [array[j], array[i]]; // Swap elements
+				}
+			}
+
+			// Shuffle the array of image-cards
+			shuffle(images);
+
+			// Re-append the image-cards in their new order
+			images.forEach(function(image) {
+				container.appendChild(image);
+			});
+		});
+
+		document.addEventListener('DOMContentLoaded', function() {
+			// Function to populate a select element with options
+			function populateSelect(selectElement, numberOfOptions) {
+				for (let i = 1; i <= numberOfOptions; i++) {
+					const option = document.createElement('option');
+					option.value = i;
+					option.text = i;
+					selectElement.appendChild(option);
+				}
+			}
+
+			// Total number of designs
+			const totalDesigns = 34;
+
+			// Populate each select element
+			populateSelect(document.getElementById('design1'), totalDesigns);
+			populateSelect(document.getElementById('design2'), totalDesigns);
+			populateSelect(document.getElementById('design3'), totalDesigns);
+			populateSelect(document.getElementById('design4'), totalDesigns);
+			populateSelect(document.getElementById('design5'), totalDesigns);
+		});
+
+
+		document.addEventListener("DOMContentLoaded", function() {
+			// Function to submit rankings
+			async function submitRankings(votes) {
+				try {
+					const response = await fetch('/submit-vote', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							votes: votes.map((vote, index) => ({ designId: vote, rank: index + 1 }))
+						}),
 					});
-					$('#buttonVideos').click(function() { 
-						$('#divVideos').toggle();
-						$('#divVideos').get(0).scrollIntoView();
-					});
-					$('#buttonAction').click(function() { 
-						$('#divAction').toggle();
-					});
+
+					if (response.ok) {
+						const data = await response.json(); // Parse the JSON response
+						alert('Votes successfully submitted!');
+						console.log(data.message); // Optionally log the success message from the server
+					} else {
+						// The response is not OK (e.g., status code 403, 500, etc.)
+						const errorData = await response.json(); // Attempt to parse the error response
+						// Check if the response has a message and display it, or show a generic error message
+						const errorMessage = errorData.message || 'Failed to submit votes. Please try again.';
+						alert(errorMessage);
+					}
+				} catch (error) {
+					console.error('Error submitting votes:', error);
+					alert('An error occurred. Please try again.');
+				}
+			}
+
+			// Submit rankings when the button is clicked
+			document.getElementById('submitRanking').addEventListener('click', () => {
+				const design1 = document.getElementById('design1').value;
+				const design2 = document.getElementById('design2').value;
+				const design3 = document.getElementById('design3').value;
+				const design4 = document.getElementById('design4').value;
+				const design5 = document.getElementById('design5').value;
+
+				// Ensure unique selections
+				const votes = [design1, design2, design3, design4, design5];
+				if (new Set(votes).size !== votes.length) {
+					alert("Please select different designs for each rank.");
+					return;
+				}
+
+				// Ensure all ranks are selected
+				if (votes.some(vote => !vote)) {
+					alert("Please make a selection for all ranks.");
+					return;
+				}
+
+				// Submit rankings to the server
+				submitRankings(votes);
+			});
+
+			async function fetchBestDesigns() {
+    try {
+        const response = await fetch('/best-designs');
+        if (!response.ok) {
+            throw new Error('Failed to fetch best designs');
+        }
+
+        const bestDesigns = await response.json();
+        const container = document.querySelector('.image-container');
+        const imageCards = Array.from(container.querySelectorAll('.image-card'));
+        
+        // Map to store if a card is ranked
+        const isRankedMap = new Map();
+
+        // Move ranked cards to the beginning in their rank order
+        bestDesigns.forEach(design => {
+            const designIdStr = design.designId.toString();
+            const card = imageCards.find(card => card.dataset.designId === designIdStr);
+            if (card) {
+                container.appendChild(card); // This moves the card to the end, effectively sorting ranked cards
+                isRankedMap.set(designIdStr, true); // Mark as ranked
+            }
+        });
+
+        // Move unranked cards to the end, maintaining their original order
+        imageCards.forEach(card => {
+            if (!isRankedMap.has(card.dataset.designId)) {
+                container.appendChild(card); // This repositions unranked cards to the end
+            }
+        });
+        
+    } catch (error) {
+        console.error('Error fetching best designs:', error);
+        alert('There was an error fetching the best designs.');
+    }
+}
+
+
+			function randomizeDesigns() {
+				var container = document.querySelector('.image-container');
+				var images = Array.from(container.querySelectorAll('.image-card'));
+
+				// Function to shuffle an array
+				function shuffle(array) {
+					for (let i = array.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[array[i], array[j]] = [array[j], array[i]]; // Swap elements
+					}
+				}
+
+				// Shuffle the array of image-cards
+				shuffle(images);
+
+				// Re-append the image-cards in their new order
+				images.forEach(function(image) {
+					container.appendChild(image);
 				});
+			}
+
+  			document.getElementById('randomizeDesignsBtn').addEventListener('click', randomizeDesigns);
+  			document.getElementById('fetchBestDesignsBtn').addEventListener('click', fetchBestDesigns);
+
+  			//fetchBestDesigns(); // Optionally, load best designs on page load
+		});
+
     </script>
 
     <style>
@@ -79,6 +245,27 @@
 		.image-card {
 			margin-bottom: 20px;
 		}
+		.vote-number {
+			background-color: rgba(255, 255, 255, 0.7);
+			padding: 5px 10px;
+			
+			font-size: 16px;
+			color: black !important;
+			font-weight: bold;
+		}
+        .vote-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline */
+        }
+        .vote-button:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 <body style="background-color:black;">
@@ -91,7 +278,7 @@
 
 		<!--<center><button onclick="window.location='/';" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Home</button></center>-->
 
-		<center><div style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; color: white;">PulseChain Postcard Design Contest #3 is Live!<br> Submit your designs by April 20th, 2024</div></center>
+		<center><div style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; color: white;">PulseChain Postcard Design Contest #3 is Live!<br> Submit your designs by <b>April 20th, 2024</b></div></center>
 
 		<center><div style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; color: white;">If you were to pitch HEX, PulseChain, PulseX and INC to the wealthiest people in the world with a postcard, what would you put on it?</div></center>
 
@@ -99,49 +286,292 @@
 
 		<center><div style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; color: white;"><u>Optional:</u> PulseChain donation address <a href="https://gitlab.com/pulsechaincom/pulsechain-mainnet#connecting-metamask" target="_blank">(Switch MetaMask to PulseChain)</a></div></center>
 
-		<center><div style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; color: white;">(Note: Also consider adding Richard Heart, GoPulse, HEXscout or any other onboarding path to your designs!)</div></center>
-
 		<center><button id="buttonDonateBlue" onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="width: 300px; height: 60px; margin-bottom: 30px; margin-top: 10px; background-color: #3498db !important; transition: background-color 0.3s ease !important;" onmouseover="this.style.backgroundColor='#2980b9'" onmouseout="this.style.backgroundColor='#3498db'">Submit Your Designs</button></center>
 
 		<center><img src="/rh_ad_feedback.jpg" style="width: 100%; max-width: 500px; padding-bottom: 20px;"></img></center>
 
 		<center>
-			<button id="buttonDesigns" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 0px;" disabled>Design Files</button>
-			<div style="text-align: center; max-width: 840px; margin: 0 auto;"> <!-- Centering Container -->
-				<div style="display: flex; justify-content: center; color: white !important; max-width: 840px; flex-wrap: wrap; padding-top: 0px;">
-					<div style="width: 100%; max-width: 400px; background-color: #10172d; margin-bottom: 30px; margin-left: 1%; margin-right: 1%;">
+			<!-- <button id="buttonDesigns" style="width: 300px; height: 60px; margin-bottom: 0px; margin-top: 0px;" disabled>Designs</button> -->
+			<div id="designActions" class="text-center my-4">
+				<button style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px; margin-right: 20px; margin-left: 20px;" id="randomizeDesignsBtn" class="btn btn-secondary">Randomize Designs</button>
+				<button style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px; margin-right: 20px; margin-left: 20px;" id="fetchBestDesignsBtn" class="btn btn-secondary" disabled>Fetch Best Designs</button>
+			</div>
+			<div id="bestDesignsContainer">
+			<!-- Designs will be displayed or reordered here -->
+			</div>
+		<center>
+
+		<center>
+			<div id="divPictures" style="color: white; text-align: left;  margin-bottom: 0px; margin-top: 16px; padding-bottom: 10px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
+				<div class="image-container">
+					<div class="col-md-4 image-card" data-design-id="1">
+						<span class="vote-number" style="float: left;">1</span>
 						<a href="/designs/HEXpostcard_6.5x9_Fillup_SideA_03.png" target="_blank"><img src="/designs/HEXpostcard_6.5x9_Fillup_SideA_03.png" style="max-width: 100%; height:auto;"></img></a><br><br>
-						<li><a href="/designs/HEXpostcard_6.5x9_Fillup_SideA_03.pdf" target="_blank">6.5x9_Fillup_SideA.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.5x9_Fillup_SideA_03.png" target="_blank">(image)</a></li></br>
-						<li><a href="/designs/HEXpostcard_6.5x9_Fillup_SideB_03.pdf" target="_blank">6.5x9_Fillup_SideB.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.5x9_Fillup_SideB_03.png" target="_blank">(image)</a></li></br>
+						<a href="/designs/HEXpostcard_6.5x9_Fillup_SideB_03.png" target="_blank"><img src="/designs/HEXpostcard_6.5x9_Fillup_SideB_03.png" style="max-width: 100%; height:auto;"></img></a>
 					</div>
-					<div style="width: 100%; max-width: 400px; background-color: #10172d; margin-bottom: 30px; margin-left: 1%; margin-right: 1%;">
-						<a href="/designs/HEXpostcard_6.5x9_Fillup_SideB_03.png" target="_blank"><img src="/designs/HEXpostcard_6.5x9_Fillup_SideB_03.png" style="max-width: 100%; height:auto;"></img></a><br><br>
-						<li><a href="/designs/HEXpostcard_6.25x9_PFL_BothSides_05.pdf" target="_blank">6.25x9_PFL_Both.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.25x9_PFL_BothSides_05.png" target="_blank">(image)</a></li></br>
-						<li><a href="/designs/HEXpostcard_6.25x9_PFL_SideA_04.pdf" target="_blank">6.25x9_PFL_SideA.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.25x9_PFL_SideA_04.png" target="_blank">(image)</a></li></br>
-						<li><a href="/designs/HEXpostcard_6.25x9_PFL_SideB_04.pdf" target="_blank">6.25x9_PFL_SideB.pdf</a> &nbsp;<a href="/designs/HEXpostcard_6.25x9_PFL_SideB_04.png" target="_blank">(image)</a></li></br>
+
+					<div class="col-md-4 image-card" data-design-id="2">
+						<span class="vote-number" style="float: left;">2</span>
+						<a href="/designs/HEXpostcard_6.5x9_Fillup_BothSides.jpg" target="_blank"><img src="/designs/HEXpostcard_6.5x9_Fillup_BothSides.jpg" style="max-width: 100%; height:auto;"></img></a>
 					</div>
-				</div>
-				<div style="display: flex; justify-content: center; color: white !important; max-width: 840px; flex-wrap: wrap;">
-					<div style="width: 100%; max-width: 400px; background-color: #10172d; margin-bottom: 30px; margin-left: 1%; margin-right: 1%;">
-						<a href="/designs/HEXpostcard_6.5x9_Fillup_BothSides.jpg" target="_blank"><img src="/designs/HEXpostcard_6.5x9_Fillup_BothSides.jpg" style="max-width: 100%; height:auto;"></img></a><br><br>
-						<li><a href="/designs/HEXpostcard_6.5x9_Fillup_SideA_06_PulseChain.jpg" target="_blank">6.5x9_Fillup_SideA_PulseChain.jpg</a></li></br>
-						<li><a href="/designs/HEXpostcard_6.5x9_Fillup_SideB_06_PulseChain.jpg" target="_blank">6.5x9_Fillup_SideB_PulseChain.jpg</a></li></br>
+
+					<div class="col-md-4 image-card" data-design-id="3">
+						<span class="vote-number" style="float: left;">3</span>
+						<a href="/designs/HEXpostcards_4.25x11_Fillup_BothSides.jpg" target="_blank"><img src="/designs/HEXpostcards_4.25x11_Fillup_BothSides.jpg" style="max-width: 100%; height:auto;"></img></a>
 					</div>
-					<div style="width: 100%; max-width: 400px; margin-bottom: 30px; background-color: #10172d; margin-left: 1%; margin-right: 1%;">
-						<a href="/designs/HEXpostcards_4.25x11_Fillup_BothSides.jpg" target="_blank"><img src="/designs/HEXpostcards_4.25x11_Fillup_BothSides.jpg" style="max-width: 100%; height:auto;"></img></a><br><br>
-						<li><a href="/designs/HEXpostcards_4.25x11_Fillup_SideA.pdf" target="_blank">4.25x11_Fillup_SideA.pdf</a></li><br>
-						<li><a href="/designs/HEXpostcards_4.25x11_Fillup_SideB.pdf" target="_blank">4.25x11_Fillup_SideB.pdf</a></li><br>
-						<li><a href="/designs/HEXpostcards_4.25x11_Fillup_BothSides.jpg" target="_blank">4.25x11_Fillup_BothSides.jpg</a></li></br><br>
-						Create Custom Design:<br><br>
-						<li><a href="https://www.adobe.com/products/illustrator" target="_blank">Adobe Illustrator ($30/month)</a></br></li></br>
-						<li><a href="https://t.me/hexdesign" target="_blank">Find a designer</a> &nbsp;<a href="https://t.me/eyeofwoden" target="_blank">(Steed)</a></li></br>
-						<li><a href="https://t.me/HEXpostcards" target="_blank">Join our Telegram Chat</a></br></li></br>
+
+					<div class="col-md-4 image-card" data-design-id="4">
+						<span class="vote-number" style="float: left;">4</span>
+						<a href="/HEXpostcards_THOS_vertical.jpg" target="_blank"><img src="/HEXpostcards_THOS_vertical.jpg" style="width: 100%; max-width: 500px; padding-bottom: 20px;"></img></a>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="5">
+						<span class="vote-number" style="float: left;">5</span>
+						<a href="/matiallin_design.jpg" target="_blank"><img src="/matiallin_design.jpg" style="width: 100%; max-width: 500px; padding-bottom: 20px;"></img></a>
+						<a href="/matiallin_design2.jpg" target="_blank"><img src="/matiallin_design2.jpg" style="width: 100%; max-width: 500px; padding-bottom: 20px;"></img></a>
+					</div>
+					
+					<div class="col-md-4 image-card" data-design-id="6">
+						<span class="vote-number" style="float: left;">6</span><br><br>
+						Ridho <a href="https://t.me/RIH69" target="_blank">(https://t.me/RIH69)</a> <a href="https://t.me/dldailinn" target="_blank">(https://t.me/dldailinn)</a><br>
+						0x7A204Fc46c79Fa477cD5Fe79e975b9476BA0cE8d<br>
+						<br>15<br> <a href="/contest02/15_Ridho_01.jpg" target="_blank"><img src="/contest02/15_Ridho_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest02/15_Ridho_02.jpg" target="_blank"><img src="/contest02/15_Ridho_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="7">
+						<span class="vote-number" style="float: left;">7</span><br><br>
+						Kita Boleh <a href="https://t.me/antidump25" target="_blank">(https://t.me/antidump25)</a><br>
+						0x5A9a201007CDE8B95e70C0c0CeDD50F26b6Ba047<br>
+						<a href="/contest02/4_Kita_01.jpg" target="_blank"><img src="/contest02/4_Kita_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest02/4_Kita_02.jpg" target="_blank"><img src="/contest02/4_Kita_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="8">
+						<span class="vote-number" style="float: left;">8</span><br><br>
+						Kita Boleh <a href="https://t.me/antidump25" target="_blank">(https://t.me/antidump25)</a><br>
+						0x5A9a201007CDE8B95e70C0c0CeDD50F26b6Ba047<br>
+						<a href="/contest02/4_Kita_03.jpg" target="_blank"><img src="/contest02/4_Kita_03.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest02/4_Kita_04.jpg" target="_blank"><img src="/contest02/4_Kita_04.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="9">
+						<span class="vote-number" style="float: left;">9</span><br><br>
+						Flaws<br>
+						<a href="/contest02/2_Flaws_01.jpg" target="_blank"><img src="/contest02/2_Flaws_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest02/2_Flaws_02.jpg" target="_blank"><img src="/contest02/2_Flaws_02.jpg" style="max-width: 100%" loading="lazy"></img></a>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="10">
+						<span class="vote-number" style="float: left;">10</span><br><br>
+						<br><a href="/contest02/2_Flaws_03.jpg" target="_blank"><img src="/contest02/2_Flaws_03.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="11">
+						<span class="vote-number" style="float: left;">11</span><br><br>
+						Jise <a href="https://t.me/Jise_11" target="_blank">(https://t.me/Jise_11)</a><br>
+						0x7d99deeac00eBe0dfE3255de7e55FB8A452cE6a8<br>
+						<a href="/contest02/16_Jise_01.jpg" target="_blank"><img src="/contest02/16_Jise_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br><br>
+						<br><a href="/contest02/16_Jise_02.jpg" target="_blank"><img src="/contest02/16_Jise_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="12">
+						<span class="vote-number" style="float: left;">12</span><br><br>
+						Cosmo <a href="https://t.me/CosmoNFTs" target="_blank">(https://t.me/CosmoNFTs)</a> <a href="https://twitter.com/cosmoNFT" target="_blank">(https://twitter.com/cosmoNFT)</a><br>
+						0x0e724D52da1A6B35Be186e638b19707974effFA4<br>
+						<a href="/contest02/8_Cosmo_01.jpg" target="_blank"><img src="/contest02/8_Cosmo_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest02/8_Cosmo_02.jpg" target="_blank"><img src="/contest02/8_Cosmo_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="13">
+						<span class="vote-number" style="float: left;">13</span><br><br>
+						Hachem <a href="https://t.me/hachemdznn" target="_blank">(https://t.me/hachemdznn)</a><br>
+						<a href="/contest02/21_Hachem_01.jpg" target="_blank"><img src="/contest02/21_Hachem_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest02/21_Hachem_02.jpg" target="_blank"><img src="/contest02/21_Hachem_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="14">
+						<span class="vote-number" style="float: left;">14</span><br><br>
+						Ugsh<br>
+						0x03Ad09bC16F07fC21EDd1F126b3a53854CbEf650<br>
+						<a href="/contest02/24_Ugsh_01.jpg" target="_blank"><img src="/contest02/24_Ugsh_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest02/24_Ugsh_02.jpg" target="_blank"><img src="/contest02/24_Ugsh_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="15">
+						<span class="vote-number" style="float: left;">15</span><br><br>
+						CryptoTruth <a href="https://t.me/CryptoTruth365" target="_blank">(https://t.me/CryptoTruth365)</a><br>
+						0xFf6e83A0F5dC4C617094d2837866c8BceBB6214A<br>
+						<a href="/contest02/22_CryptoTruth_01.jpg" target="_blank"><img src="/contest02/22_CryptoTruth_01.jpg" style="max-width: 100%" loading="lazy"></img></a>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="16">
+						<span class="vote-number" style="float: left;">16</span><br><br>
+						Tob <a href="https://t.me/tobzwei" target="_blank">(https://t.me/tobzwei)</a><br>
+						0xa59269584Fa2583A74F32D4a7E6d430DbB648D26<br>
+						<a href="/contest02/23_Tob_01.jpg" target="_blank"><img src="/contest02/23_Tob_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="17">
+						<span class="vote-number" style="float: left;">17</span><br><br>
+						Faaz <a href="https://t.me/faazx0" target="_blank">(https://t.me/faazx0)</a><br>
+						0x5e0885D5348D36fc480F5e7D834495569D770c23<br>
+						<a href="/contest02/18_Faaz_01.jpg" target="_blank"><img src="/contest02/18_Faaz_01.jpg" style="max-width: 100%" loading="lazy"></img></a>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="18">
+						<span class="vote-number" style="float: left;">18</span><br><br>
+						CryBaby <a href="https://t.me/Papahaliffreal" target="_blank">(https://t.me/Papahaliffreal)</a><br>
+						0x9Ff6429723B0Dd4e0c6fb52CccEcd26b676A52c7<br>
+						<a href="/contest02/11_CryBaby_01.jpg" target="_blank"><img src="/contest02/11_CryBaby_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="19">
+						<span class="vote-number" style="float: left;">19</span><br><br>
+						MaiaD <a href="https://t.me/MaiaD393" target="_blank">(https://t.me/MaiaD393)</a> <a href="https://twitter.com/traveler393" target="_blank">(https://twitter.com/traveler393)</a><br>
+						0x3949Ba0c01C6b095BB74CF68d851A3aD3346C8C4<br>
+						<a href="/contest02/1_MaiaD393_02.jpg" target="_blank"><img src="/contest02/1_MaiaD393_02.jpg" style="max-width: 100%" loading="lazy"></img></a>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="20">
+						<span class="vote-number" style="float: left;">20</span><br><br>
+						<br><a href="/contest02/1_MaiaD393_07.jpg" target="_blank"><img src="/contest02/1_MaiaD393_07.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="21">
+						<span class="vote-number" style="float: left;">21</span><br><br>
+						MaiaD <a href="https://t.me/MaiaD393" target="_blank">(https://t.me/MaiaD393)</a> <a href="https://twitter.com/traveler393" target="_blank">(https://twitter.com/traveler393)</a><br>
+						0x3949Ba0c01C6b095BB74CF68d851A3aD3346C8C4<br>
+						<a href="/contest02/1_MaiaD393_03.jpg" target="_blank"><img src="/contest02/1_MaiaD393_03.jpg" style="max-width: 100%" loading="lazy"></img></a>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="22">
+						<span class="vote-number" style="float: left;">22</span><br><br>
+						<br><a href="/contest02/1_MaiaD393_04.jpg" target="_blank"><img src="/contest02/1_MaiaD393_04.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="23">
+						<span class="vote-number" style="float: left;">23</span><br><br>
+						0xJohn <a href="https://t.me/crypto0xJohn" target="_blank">(https://t.me/crypto0xJohn)</a><br>
+						<a href="/contest/HEXpostcarddesign_015.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_015.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest/HEXpostcarddesign_015b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_015b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="24">
+						<span class="vote-number" style="float: left;">24</span><br><br>
+						Kax Design <a href="https://twitter.com/kax_design" target="_blank">(https://twitter.com/kax_design)</a> <a href="https://t.me/kdesign25" target="_blank">(https://t.me/kdesign25)</a><br>
+						<a href="/contest/HEXpostcarddesign_014.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest/HEXpostcarddesign_014b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="25">
+						<span class="vote-number" style="float: left;">25</span><br><br>
+						Kax Design <a href="https://twitter.com/kax_design" target="_blank">(https://twitter.com/kax_design)</a> <a href="https://t.me/kdesign25" target="_blank">(https://t.me/kdesign25)</a><br>
+						<a href="/contest/HEXpostcarddesign_014dark.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014dark.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest/HEXpostcarddesign_014darkb.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014darkb.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="26">
+						<span class="vote-number" style="float: left;">26</span><br><br>
+						EcoBuildr <a href="https://twitter.com/EcoBuildr" target="_blank">(https://twitter.com/EcoBuildr)</a><br>
+						<a href="/contest/HEXpostcarddesign_007.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_007.jpg" style="max-width: 100%" loading="lazy"></img></a>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="27">
+						<span class="vote-number" style="float: left;">27</span><br><br>
+						<a href="/contest/HEXpostcarddesign_008.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_008.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="28">
+						<span class="vote-number" style="float: left;">28</span><br><br>
+						B3NN0
+						<a href="/contest/HEXpostcarddesign_011.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_011.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest/HEXpostcarddesign_011b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_011b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="29">
+						<span class="vote-number" style="float: left;">29</span><br><br>
+						Neptune Creates
+						<a href="/contest/HEXpostcarddesign_018.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest/HEXpostcarddesign_018b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="30">
+						<span class="vote-number" style="float: left;">30</span><br><br>
+						Neptune Creates
+						<a href="/contest/HEXpostcarddesign_018c.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018c.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+						<br><a href="/contest/HEXpostcarddesign_018d.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018d.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="31">
+						<span class="vote-number" style="float: left;">31</span><br><br>
+						EcoBuildr <a href="https://twitter.com/EcoBuildr" target="_blank">(https://twitter.com/EcoBuildr)</a><br>
+						<a href="/contest/HEXpostcarddesign_004.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_004.jpg" style="max-width: 100%" loading="lazy"></img></a>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="32">
+						<span class="vote-number" style="float: left;">32</span><br><br>
+						<a href="/contest/HEXpostcarddesign_005.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_005.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="33">
+						<span class="vote-number" style="float: left;">33</span><br><br>
+						EcoBuildr <a href="https://twitter.com/EcoBuildr" target="_blank">(https://twitter.com/EcoBuildr)</a><br>
+						<a href="/contest/HEXpostcarddesign_009.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_009.jpg" style="max-width: 100%" loading="lazy"></img></a>
+					</div>
+
+					<div class="col-md-4 image-card" data-design-id="34">
+						<span class="vote-number" style="float: left;">34</span><br><br>
+						<a href="/contest/HEXpostcarddesign_010.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_010.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
 					</div>
 				</div>
 			</div>
 		<center>
 
-		<!-- <center>
+		<center>
+			<div class="container mt-5 mb-5" style="width: 100%; max-width:500px;">
+				<h2 class="text-white mb-4 text-center">Vote for Your Top 5 Designs</h2>
+				<form id="votingForm" class="text-center">
+					<div class="form-group">
+						<select id="design1" class="form-control mb-3">
+							<option value="">Select your #1 favorite</option>
+						</select>
+						<select id="design2" class="form-control mb-3">
+							<option value="">Select your #2 favorite</option>
+						</select>
+						<select id="design3" class="form-control mb-3">
+							<option value="">Select your #3 favorite</option>
+						</select>
+						<select id="design4" class="form-control mb-3">
+							<option value="">Select your #4 favorite</option>
+						</select>
+						<select id="design5" class="form-control mb-3">
+							<option value="">Select your #5 favorite</option>
+						</select>
+					</div>
+					<button type="button" id="submitRanking" class="btn btn-primary">Submit Rankings</button>
+				</form>
+			</div>
+		</center>
+
+		<center>
+			<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 20px;">Take Action</button></a>
+		<center>
+
+	    <center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Join Chat</button></center>
+
+		<center><a href="/donate"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Donate</button></a></center>
+
+		<center><button onclick="window.location='/';" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Home</button></center>
+
+		<center><img src="/hexpostcards_richard_wishsatoshisentletter_tweet.png" style="max-width: 100%; height:auto; margin-top: 40px;"></img></center>
+
+		<center><div style="margin-bottom: 120px"></div></center>
+	</div>  
+</div>
+
+
+<!-- <center>
 			<div style="color: white; text-align: left; width: 100%; max-width: 500px;">
 <pre style="color: white;">
 What are the main selling points of HEX, PLS, PLSX, INC?
@@ -197,181 +627,3 @@ What else have we added on the cards?
 </pre>
 			</div>
 		</center> -->
-
-		<center><button id="buttonDesigns" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 0px;" disabled>Highest of Stakes</button></center>
-		<center><a href="/HEXpostcards_THOS_horizontal.jpg" target="_blank"><img src="/HEXpostcards_THOS_horizontal.jpg" style="width: 100%; max-width: 500px; padding-bottom: 20px;"></img></a></center>
-
-		<center><button id="buttonDesigns" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 0px;" disabled>Mati Allin</button></center>
-		<center><a href="/matiallin_design.jpg" target="_blank"><img src="/matiallin_design.jpg" style="width: 100%; max-width: 500px; padding-bottom: 20px;"></img></a></center>
-
-			<center><button id="buttonDesigns" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 0px;" disabled>Contest #2</button></center>
-
-			<center>
-				<div id="divPictures02" style="color: white; text-align: left;  margin-bottom: 0px; margin-top: 16px; padding-bottom: 10px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
-				<div class="image-container">
-					<div class="col-md-4 image-card">
-					Ridho <a href="https://t.me/RIH69" target="_blank">(https://t.me/RIH69)</a> <a href="https://t.me/dldailinn" target="_blank">(https://t.me/dldailinn)</a><br>
-					0x7A204Fc46c79Fa477cD5Fe79e975b9476BA0cE8d<br>
-					<br>15<br> <a href="/contest02/15_Ridho_01.jpg" target="_blank"><img src="/contest02/15_Ridho_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/15_Ridho_02.jpg" target="_blank"><img src="/contest02/15_Ridho_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Kita Boleh <a href="https://t.me/antidump25" target="_blank">(https://t.me/antidump25)</a><br>
-					0x5A9a201007CDE8B95e70C0c0CeDD50F26b6Ba047<br>
-					<br>4<br> <a href="/contest02/4_Kita_01.jpg" target="_blank"><img src="/contest02/4_Kita_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/4_Kita_02.jpg" target="_blank"><img src="/contest02/4_Kita_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Kita Boleh <a href="https://t.me/antidump25" target="_blank">(https://t.me/antidump25)</a><br>
-					0x5A9a201007CDE8B95e70C0c0CeDD50F26b6Ba047<br>
-					<br>4<br> <a href="/contest02/4_Kita_03.jpg" target="_blank"><img src="/contest02/4_Kita_03.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/4_Kita_04.jpg" target="_blank"><img src="/contest02/4_Kita_04.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Flaws<br>
-					<br>2 <a href="/contest02/2_Flaws_01.jpg" target="_blank"><img src="/contest02/2_Flaws_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/2_Flaws_02.jpg" target="_blank"><img src="/contest02/2_Flaws_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/2_Flaws_03.jpg" target="_blank"><img src="/contest02/2_Flaws_03.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Jise <a href="https://t.me/Jise_11" target="_blank">(https://t.me/Jise_11)</a><br>
-					0x7d99deeac00eBe0dfE3255de7e55FB8A452cE6a8<br>
-					<br>16<br> <a href="/contest02/16_Jise_01.jpg" target="_blank"><img src="/contest02/16_Jise_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/16_Jise_02.jpg" target="_blank"><img src="/contest02/16_Jise_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Cosmo <a href="https://t.me/CosmoNFTs" target="_blank">(https://t.me/CosmoNFTs)</a> <a href="https://twitter.com/cosmoNFT" target="_blank">(https://twitter.com/cosmoNFT)</a><br>
-					0x0e724D52da1A6B35Be186e638b19707974effFA4<br>
-					<br>8<br> <a href="/contest02/8_Cosmo_01.jpg" target="_blank"><img src="/contest02/8_Cosmo_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/8_Cosmo_02.jpg" target="_blank"><img src="/contest02/8_Cosmo_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Hachem <a href="https://t.me/hachemdznn" target="_blank">(https://t.me/hachemdznn)</a><br>
-					<br>21 <a href="/contest02/21_Hachem_01.jpg" target="_blank"><img src="/contest02/21_Hachem_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/21_Hachem_02.jpg" target="_blank"><img src="/contest02/21_Hachem_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Ugsh<br>
-					0x03Ad09bC16F07fC21EDd1F126b3a53854CbEf650<br>
-					<br>24<br> <a href="/contest02/24_Ugsh_01.jpg" target="_blank"><img src="/contest02/24_Ugsh_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/24_Ugsh_02.jpg" target="_blank"><img src="/contest02/24_Ugsh_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					CryptoTruth <a href="https://t.me/CryptoTruth365" target="_blank">(https://t.me/CryptoTruth365)</a><br>
-					0xFf6e83A0F5dC4C617094d2837866c8BceBB6214A<br>
-					<br>22<br> <a href="/contest02/22_CryptoTruth_01.jpg" target="_blank"><img src="/contest02/22_CryptoTruth_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					Tob <a href="https://t.me/tobzwei" target="_blank">(https://t.me/tobzwei)</a><br>
-					0xa59269584Fa2583A74F32D4a7E6d430DbB648D26<br>
-					<br>23<br> <a href="/contest02/23_Tob_01.jpg" target="_blank"><img src="/contest02/23_Tob_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Faaz <a href="https://t.me/faazx0" target="_blank">(https://t.me/faazx0)</a><br>
-					0x5e0885D5348D36fc480F5e7D834495569D770c23<br>
-					<br>18<br> <a href="/contest02/18_Faaz_01.jpg" target="_blank"><img src="/contest02/18_Faaz_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					CryBaby <a href="https://t.me/Papahaliffreal" target="_blank">(https://t.me/Papahaliffreal)</a><br>
-					0x9Ff6429723B0Dd4e0c6fb52CccEcd26b676A52c7<br>
-					<br>11<br> <a href="/contest02/11_CryBaby_01.jpg" target="_blank"><img src="/contest02/11_CryBaby_01.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					MaiaD <a href="https://t.me/MaiaD393" target="_blank">(https://t.me/MaiaD393)</a> <a href="https://twitter.com/traveler393" target="_blank">(https://twitter.com/traveler393)</a><br>
-					0x3949Ba0c01C6b095BB74CF68d851A3aD3346C8C4<br>
-					<br>1<br><a href="/contest02/1_MaiaD393_02.jpg" target="_blank"><img src="/contest02/1_MaiaD393_02.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/1_MaiaD393_07.jpg" target="_blank"><img src="/contest02/1_MaiaD393_07.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					MaiaD <a href="https://t.me/MaiaD393" target="_blank">(https://t.me/MaiaD393)</a> <a href="https://twitter.com/traveler393" target="_blank">(https://twitter.com/traveler393)</a><br>
-					0x3949Ba0c01C6b095BB74CF68d851A3aD3346C8C4<br>
-					<br>1<br> <a href="/contest02/1_MaiaD393_03.jpg" target="_blank"><img src="/contest02/1_MaiaD393_03.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest02/1_MaiaD393_04.jpg" target="_blank"><img src="/contest02/1_MaiaD393_04.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-				</div>
-				</div>
-			<center>
-
-				<center><button id="buttonDesigns" style="width: 300px; height: 60px; margin-bottom: 20px; margin-top: 30px;" disabled>Contest #1</button></center>
-				<div id="divPictures" style="color: white; text-align: left;  margin-bottom: 0px; margin-top: 16px; padding-bottom: 10px; background-color: #10172d; padding-left: 7px; padding-top: 5px;">
-				<div class="image-container">
-					<div class="col-md-4 image-card">
-					0xJohn <a href="https://t.me/crypto0xJohn" target="_blank">(https://t.me/crypto0xJohn)</a><br>
-					<br>15 <a href="/contest/HEXpostcarddesign_015.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_015.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest/HEXpostcarddesign_015b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_015b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Kax Design <a href="https://twitter.com/kax_design" target="_blank">(https://twitter.com/kax_design)</a> <a href="https://t.me/kdesign25" target="_blank">(https://t.me/kdesign25)</a><br>
-					<br>14 <a href="/contest/HEXpostcarddesign_014.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest/HEXpostcarddesign_014b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Kax Design <a href="https://twitter.com/kax_design" target="_blank">(https://twitter.com/kax_design)</a> <a href="https://t.me/kdesign25" target="_blank">(https://t.me/kdesign25)</a><br>
-					<br>14 <a href="/contest/HEXpostcarddesign_014dark.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014dark.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest/HEXpostcarddesign_014darkb.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_014darkb.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					EcoBuildr <a href="https://twitter.com/EcoBuildr" target="_blank">(https://twitter.com/EcoBuildr)</a><br>
-					<br>7 <a href="/contest/HEXpostcarddesign_007.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_007.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br>8 <a href="/contest/HEXpostcarddesign_008.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_008.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					B3NN0
-					<br>11 <a href="/contest/HEXpostcarddesign_011.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_011.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest/HEXpostcarddesign_011b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_011b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Neptune Creates
-					<br>18 <a href="/contest/HEXpostcarddesign_018.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest/HEXpostcarddesign_018b.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018b.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					Neptune Creates
-					<br>18 <a href="/contest/HEXpostcarddesign_018c.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018c.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br><a href="/contest/HEXpostcarddesign_018d.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_018d.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					EcoBuildr <a href="https://twitter.com/EcoBuildr" target="_blank">(https://twitter.com/EcoBuildr)</a><br>
-					<br>4 <a href="/contest/HEXpostcarddesign_004.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_004.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br>5 <a href="/contest/HEXpostcarddesign_005.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_005.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-
-					<div class="col-md-4 image-card">
-					EcoBuildr <a href="https://twitter.com/EcoBuildr" target="_blank">(https://twitter.com/EcoBuildr)</a><br>
-					<br>9 <a href="/contest/HEXpostcarddesign_009.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_009.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					<br>10 <a href="/contest/HEXpostcarddesign_010.jpg" target="_blank"><img src="/contest/HEXpostcarddesign_010.jpg" style="max-width: 100%" loading="lazy"></img></a><br>
-					</div>
-				</div>
-				</div>
-			<center>
-
-		<center>
-			<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 20px;">Take Action</button></a>
-		<center>
-
-	    <center><button onclick="window.open('https://t.me/HEXpostcards','_blank');" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Join Chat</button></center>
-
-		<center><a href="/donate"><button type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Donate</button></a></center>
-
-		<center><button onclick="window.location='/';" type="button" style="height: 60px; width: 300px; margin-top: 10px; margin-bottom: 10px;">Home</button></center>
-
-		<center><img src="/hexpostcards_richard_wishsatoshisentletter_tweet.png" style="max-width: 100%; height:auto; margin-top: 40px;"></img></center>
-
-		<center><div style="margin-bottom: 120px"></div></center>
-	</div>  
-</div>
-<div ><div id="footer" style="margin-bottom: 0px;"></div></div>

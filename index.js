@@ -37,13 +37,25 @@ const EthPrice = mongoose.model('EthPrices', EthPriceSchema);
 
 var ethPrices = undefined;
 
+
+var VoteSchema = new Schema({
+  ip: { type: String, required: true },
+  votes: [{ designId: Number, rank: Number }],
+  createdAt: { type: Date, default: Date.now }
+});
+
+var Vote = mongoose.model('Vote', VoteSchema);
+
+
 var mongoDB = CONFIG.mongodb.connectionString;
+//if (!DEBUG){
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
 		log("Mongo Connected!");
 
-    ethPrices = getEthPrices();
-    getAndSet_currentEthPrice();
+    //ethPrices = getEthPrices();
+    //getAndSet_currentEthPrice();
 });
+//}
 
 async function getEthPrices(){
   console.log("getEthPrices()");
@@ -74,6 +86,7 @@ if(!DEBUG){
 }
 
 const app = express();
+app.use(express.json());
 
 app.use(function(req, res, next) {
 	next();
@@ -149,6 +162,70 @@ io.on('connection', (socket) => {
     socket.emit("hexPrice", hexPrice);
 		socket.emit("leaderboardData", leaderboardData);
 });
+
+
+/////////////////////////////////////////////
+// VOTING
+
+app.post('/submit-vote', async (req, res) => {
+  console.log(req.body);
+  const ip = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log('IP Address:', ip);
+  const votes = req.body.votes; // Expecting an array of { designId, rank }
+
+  // Transform votes into the expected format
+  const transformedVotes = votes.map((vote, index) => ({
+      designId: vote.designId,
+      rank: index + 1 // Assuming the frontend sends them in ranked order
+  }));
+
+  try {
+      // Check if the IP has already submitted a vote
+      const existingVote = await Vote.findOne({ ip: ip });
+      if (existingVote) {
+          // If a vote from this IP already exists, do not allow another vote
+          return res.status(403).json({ message: 'You have already voted.' });
+      }
+
+      // If no existing vote is found, proceed to save the new vote
+      await Vote.create({ ip, votes: transformedVotes });
+      res.status(200).json({ message: 'Vote successfully recorded.' });
+  } catch (error) {
+      console.error('Error submitting vote:', error);
+      res.status(500).json({ message: 'Error submitting vote' });
+  }
+});
+
+
+app.get('/best-designs', async (req, res) => {
+  try {
+    res.status(500).send('Error fetching best designs');
+    //const bestDesigns = await calculateBestDesigns();
+    //res.json(bestDesigns);
+  } catch (error) {
+    res.status(500).send('Error fetching best designs');
+  }
+});
+
+async function calculateBestDesigns() {
+  const votes = await Vote.find();
+  const scores = {};
+
+  votes.forEach(vote => {
+    vote.votes.forEach(({ designId, rank }) => {
+      if (!scores[designId]) scores[designId] = 0;
+      scores[designId] += (6 - rank); // Assuming 5 is the highest rank
+    });
+  });
+
+  // Convert scores to an array and sort by score
+  const sortedScores = Object.keys(scores).map(designId => ({
+    designId: parseInt(designId),
+    score: scores[designId]
+  })).sort((a, b) => b.score - a.score);
+
+  return sortedScores;
+}
 
 
 /////////////////////////////////////////////
