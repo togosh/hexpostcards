@@ -177,7 +177,7 @@ app.post('/submit-vote', async (req, res) => {
   const votes = req.body.votes; // Expecting an array of objects with designId
 
   // Basic structural validation
-  if (!Array.isArray(votes) || votes.length === 0) {
+  if (!Array.isArray(votes) || votes.length === 0 || votes.length > 5) {
     return res.status(400).json({ message: 'Invalid vote format.' });
   }
 
@@ -186,13 +186,13 @@ app.post('/submit-vote', async (req, res) => {
   const receivedIds = new Set();
 
   for (const vote of votes) {
-    if (typeof vote !== 'object' || !validDesignIds.has(vote.designId)) {
+    if (isNaN(Number(vote.designId)) || !validDesignIds.has(Number(vote.designId))) {
       return res.status(400).json({ message: 'Invalid designId in vote.' });
     }
-    if (receivedIds.has(vote.designId)) {
+    if (receivedIds.has(Number(vote.designId))) {
       return res.status(400).json({ message: 'Duplicate designId detected.' });
     }
-    receivedIds.add(vote.designId);
+    receivedIds.add(Number(vote.designId));
   }
 
   // Check if the IP has already submitted a vote
