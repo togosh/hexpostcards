@@ -96,13 +96,16 @@ const httpServer = http.createServer(app);
 var httpsServer = undefined;
 if(!DEBUG){ httpsServer = https.createServer(httpsOptions, app);}
 
-if(!DEBUG){ app.use((req, res, next) => 
-{
-  if(req.protocol === 'http') { 
-    res.redirect(307, 'https://' + hostname); 
-  }
-  next(); 
-}); }
+if(!DEBUG){
+  app.use((req, res, next) => {
+    if(req.protocol === 'http') {
+      // Include the full URL path and query in the redirect
+      const fullUrl = 'https://' + req.hostname + req.originalUrl;
+      return res.redirect(307, fullUrl);
+    }
+    next();
+  });
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 
