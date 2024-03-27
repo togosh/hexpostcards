@@ -291,13 +291,37 @@
 		<center><img src="/rh_ad_feedback.jpg" style="width: 100%; max-width: 500px; padding-bottom: 20px;"></img></center>
 
 		<center>
-			<!-- <button id="buttonDesigns" style="width: 300px; height: 60px; margin-bottom: 0px; margin-top: 0px;" disabled>Designs</button> -->
-			<div id="designActions" class="text-center my-4">
-				<button style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px; margin-right: 20px; margin-left: 20px;" id="randomizeDesignsBtn" class="btn btn-secondary">Randomize Designs</button>
-				<button style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px; margin-right: 20px; margin-left: 20px;" id="fetchBestDesignsBtn" class="btn btn-secondary" disabled>Fetch Best Designs</button>
+			<button id="buttonDesigns" style="width: 300px; height: 60px; margin-bottom: 0px; margin-top: 10px;" disabled>Vote</button>
+			<div class="container mt-3 mb-3" style="width: 100%; max-width:500px;">
+				<h2 class="text-white mb-4 text-center">Vote for Your Top 5 Designs</h2>
+				<form id="votingForm" class="text-center">
+					<div class="form-group">
+						<select id="design1" class="form-control mb-3">
+							<option value="">Select your #1 favorite</option>
+						</select>
+						<select id="design2" class="form-control mb-3">
+							<option value="">Select your #2 favorite</option>
+						</select>
+						<select id="design3" class="form-control mb-3">
+							<option value="">Select your #3 favorite</option>
+						</select>
+						<select id="design4" class="form-control mb-3">
+							<option value="">Select your #4 favorite</option>
+						</select>
+						<select id="design5" class="form-control mb-3">
+							<option value="">Select your #5 favorite</option>
+						</select>
+					</div>
+					<button type="button" id="submitRanking" class="btn btn-primary" style="width: 200px; height: 50px;">Submit Rankings</button>
+				</form>
 			</div>
-			<div id="bestDesignsContainer">
-			<!-- Designs will be displayed or reordered here -->
+		</center>
+
+		<center>
+			
+			<div id="designActions" class="text-center">
+				<button style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px; margin-right: 20px; margin-left: 20px;" id="randomizeDesignsBtn" class="btn btn-secondary">Randomize Designs</button>
+				<button style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 10px; margin-right: 20px; margin-left: 20px;" id="fetchBestDesignsBtn" class="btn btn-secondary" disabled>Sort by Ranking</button>
 			</div>
 		<center>
 
@@ -527,32 +551,6 @@
 				</div>
 			</div>
 		<center>
-
-		<center>
-			<div class="container mt-5 mb-5" style="width: 100%; max-width:500px;">
-				<h2 class="text-white mb-4 text-center">Vote for Your Top 5 Designs</h2>
-				<form id="votingForm" class="text-center">
-					<div class="form-group">
-						<select id="design1" class="form-control mb-3">
-							<option value="">Select your #1 favorite</option>
-						</select>
-						<select id="design2" class="form-control mb-3">
-							<option value="">Select your #2 favorite</option>
-						</select>
-						<select id="design3" class="form-control mb-3">
-							<option value="">Select your #3 favorite</option>
-						</select>
-						<select id="design4" class="form-control mb-3">
-							<option value="">Select your #4 favorite</option>
-						</select>
-						<select id="design5" class="form-control mb-3">
-							<option value="">Select your #5 favorite</option>
-						</select>
-					</div>
-					<button type="button" id="submitRanking" class="btn btn-primary">Submit Rankings</button>
-				</form>
-			</div>
-		</center>
 
 		<center>
 			<a href="/takeaction"><button id="buttonAction" style="width: 300px; height: 60px; margin-bottom: 10px; margin-top: 20px;">Take Action</button></a>
